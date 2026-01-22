@@ -1,0 +1,216 @@
+import { motion } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { ArrowRight, Phone, MessageSquare, Filter, Send, CheckCircle } from 'lucide-react';
+
+const steps = [
+  {
+    number: '01',
+    title: 'Call Comes In',
+    description: 'System answers immediately with your brand greeting and disclosure.',
+    icon: Phone,
+  },
+  {
+    number: '02',
+    title: 'Capture Details',
+    description: 'AI collects address, issue type, severity, and insurance info.',
+    icon: MessageSquare,
+  },
+  {
+    number: '03',
+    title: 'Triage & Qualify',
+    description: 'Automatically classify as Emergency, Urgent, or Routine.',
+    icon: Filter,
+  },
+  {
+    number: '04',
+    title: 'Dispatch Team',
+    description: 'Alert on-call techs via SMS/Slack. One-tap acknowledgment.',
+    icon: Send,
+  },
+  {
+    number: '05',
+    title: 'Job Created',
+    description: 'Full intake record, recording, transcript, and outcome tracking.',
+    icon: CheckCircle,
+  },
+];
+
+function StepCard({ step, index, isActive }) {
+  const Icon = step.icon;
+
+  return (
+    <div
+      className={`group relative rounded-xl transition-all duration-300 p-5
+        ${isActive
+          ? 'bg-slate-900/80 border border-slate-700 shadow-sm'
+          : 'bg-transparent border border-transparent hover:bg-slate-900/40'
+        }
+      `}
+    >
+      <div className="flex items-start gap-4">
+        {/* Step number */}
+        <span
+          className={`flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full font-mono text-xs font-medium transition-colors duration-300 ${
+            isActive
+              ? 'bg-secondary text-white'
+              : 'bg-muted/10 text-muted'
+          }`}
+        >
+          {index + 1}
+        </span>
+
+        <div className="flex-1 min-w-0">
+          {/* Icon and Title row */}
+          <div className="flex items-center gap-2 mb-2">
+            <Icon
+              className={`w-5 h-5 transition-colors duration-300 ${
+                isActive ? 'text-secondary' : 'text-muted/50'
+              }`}
+            />
+            <h3
+              className={`font-medium text-base transition-colors duration-300 ${
+                isActive ? 'text-foreground' : 'text-muted'
+              }`}
+            >
+              {step.title}
+            </h3>
+          </div>
+
+          {/* Description */}
+          <p
+            className={`text-sm leading-relaxed transition-colors duration-300 ${
+              isActive ? 'text-muted' : 'text-muted/40'
+            }`}
+          >
+            {step.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StepConnector({ activeStep, totalSteps }) {
+  return (
+    <div className="hidden lg:flex absolute top-8 left-0 right-0 z-0 justify-between px-[3rem]">
+      {[...Array(totalSteps - 1)].map((_, i) => (
+        <div key={i} className="flex-1 flex items-center mx-4">
+          <div className="relative w-full h-px bg-border rounded-full overflow-hidden">
+            <div
+              className={`absolute inset-y-0 left-0 bg-secondary/50 rounded-full transition-all duration-500 ${
+                activeStep > i ? 'w-full' : 'w-0'
+              }`}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function HowItWorks() {
+  const stepsRef = useRef(null);
+  const [stepsInView, setStepsInView] = useState(false);
+  const [activeStep, setActiveStep] = useState(-1);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStepsInView(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (stepsRef.current) {
+      observer.observe(stepsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!stepsInView) return;
+
+    const stepDuration = 600;
+    const timeouts = [];
+
+    steps.forEach((_, index) => {
+      const timeout = setTimeout(() => {
+        setActiveStep(index);
+      }, index * stepDuration);
+      timeouts.push(timeout);
+    });
+
+    return () => timeouts.forEach(clearTimeout);
+  }, [stepsInView]);
+
+  return (
+    <section id="how-it-works" className="py-24 px-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 mb-6">
+            <ArrowRight className="w-4 h-4 text-secondary" />
+            <span className="font-mono text-xs text-muted uppercase tracking-widest">How It Works</span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-6">
+            From ring to dispatch in under 60 seconds
+          </h2>
+          <p className="text-lg text-muted max-w-2xl mx-auto">
+            No complex setup. No learning curve.
+            <br className="hidden sm:block" />
+            Just calls → intake → dispatch → jobs.
+          </p>
+        </motion.div>
+
+        {/* Steps */}
+        <div ref={stepsRef} className="relative">
+          <StepConnector activeStep={activeStep} totalSteps={steps.length} />
+          <div className="grid md:grid-cols-5 gap-4 relative z-10">
+            {steps.map((step, index) => (
+              <StepCard
+                key={step.number}
+                step={step}
+                index={index}
+                isActive={activeStep >= index}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Security note */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-16 bg-slate-900/60 border border-slate-700 rounded-xl p-6"
+        >
+          <h3 className="font-medium text-foreground mb-4">Security & Compliance</h3>
+          <div className="grid sm:grid-cols-3 gap-4 text-sm text-muted">
+            <div className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
+              <span>Configurable recording disclosures</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
+              <span>Encrypted data in transit and at rest</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
+              <span>Retention policies you control</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

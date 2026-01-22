@@ -1,0 +1,552 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #030712;
+  color: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar - dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Selection - blue accent */
+::selection {
+  background: rgba(14, 165, 233, 0.3);
+  color: #f8fafc;
+}
+
+/* Call wave animation */
+@keyframes callWave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.8);
+  }
+}
+
+.animate-call-wave {
+  animation: callWave 0.8s ease-in-out infinite;
+}
+
+.animate-call-wave-delayed {
+  animation: callWave 0.8s ease-in-out 0.2s infinite;
+}
+
+.animate-call-wave-delayed-2 {
+  animation: callWave 0.8s ease-in-out 0.4s infinite;
+}
+
+/* Pulse ring animation for phone icons */
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.pulse-ring-delayed {
+  animation: pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) 0.5s infinite;
+}
+
+/* Beam flow animation */
+.connector-beam {
+  fill: none;
+  stroke: #0ea5e9;
+  stroke-width: 2.5;
+  stroke-dasharray: 12 100;
+  stroke-linecap: round;
+  animation: beamFlow 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(14, 165, 233, 0.7));
+}
+
+@keyframes beamFlow {
+  from {
+    stroke-dashoffset: 112;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.connector-path {
+  fill: none;
+  stroke: #3d4455;
+  stroke-width: 1.5;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 6s ease-in-out 3s infinite;
+}
+
+/* Terminal line animation */
+.terminal-line {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.terminal-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Blinking cursor - blue */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background: #0ea5e9;
+  margin-left: 2px;
+  animation: cursorBlink 1s steps(2, start) infinite;
+  vertical-align: middle;
+}
+
+@keyframes cursorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Vanish out animation for terminal reset */
+@keyframes vanishOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* Graph fade gradient overlay */
+.graph-fade {
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+/* Terminal scrollbar */
+.terminal-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background: #3d4455;
+  border-radius: 2px;
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #5a5f75;
+}
+
+/* Glow effect for center node */
+.center-glow {
+  box-shadow: 0 0 40px rgba(14, 165, 233, 0.3), 0 0 80px rgba(14, 165, 233, 0.1);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(14, 165, 233, 0.3), 0 0 80px rgba(14, 165, 233, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(14, 165, 233, 0.4), 0 0 100px rgba(14, 165, 233, 0.2);
+  }
+}
+
+/* Service icon hover glow */
+.service-icon {
+  transition: all 0.3s ease;
+}
+
+.service-icon:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Service icon pulse animation - synced with beams */
+.service-icon-pulse {
+  animation: iconPulse 4s ease-in-out infinite;
+}
+
+.service-icon-pulse-delayed {
+  animation: iconPulse 4s ease-in-out 2s infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  25%, 75% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(14, 165, 233, 0.25);
+  }
+}
+
+/* Rotating ring around center node */
+.center-ring {
+  animation: rotateRing 12s linear infinite;
+}
+
+@keyframes rotateRing {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Orbiting dots around center */
+.orbit-dot {
+  animation: orbitDot 6s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes orbitDot {
+  from {
+    transform: rotate(0deg) translateX(48px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(48px) rotate(-360deg);
+  }
+}
+
+/* Shimmer effect for step cards */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Pulse scale animation */
+@keyframes pulseScale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-scale {
+  animation: pulseScale 2s ease-in-out infinite;
+}
+
+/* Priority colors */
+.priority-emergency { color: #ef4444; }
+.priority-urgent { color: #f59e0b; }
+.priority-routine { color: #22c55e; }
+
+.priority-bg-emergency { background-color: rgba(239, 68, 68, 0.1); border-color: #ef4444; }
+.priority-bg-urgent { background-color: rgba(245, 158, 11, 0.1); border-color: #f59e0b; }
+.priority-bg-routine { background-color: rgba(34, 197, 94, 0.1); border-color: #22c55e; }
+
+/* Typewriter effect */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 2s steps(40, end);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Scan line animation for video preview */
+@keyframes scanLine {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+.animate-scan-line {
+  animation: scanLine 3s ease-in-out infinite;
+}
+
+/* Blink animation */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s steps(2, start) infinite;
+}
+
+/* Sound wave animation */
+@keyframes soundWave {
+  0%, 100% {
+    height: 8px;
+  }
+  50% {
+    height: 24px;
+  }
+}
+
+.sound-wave {
+  animation: soundWave 0.6s ease-in-out infinite;
+}
+
+.sound-wave-1 { animation-delay: 0s; }
+.sound-wave-2 { animation-delay: 0.1s; }
+.sound-wave-3 { animation-delay: 0.2s; }
+.sound-wave-4 { animation-delay: 0.3s; }
+.sound-wave-5 { animation-delay: 0.4s; }
+
+/* Incoming call ripple */
+@keyframes incomingCall {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-incoming-call {
+  animation: incomingCall 1s ease-in-out infinite;
+}
+
+/* Dispatch arrow animation */
+@keyframes dispatchArrow {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(10px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-dispatch {
+  animation: dispatchArrow 1.5s ease-in-out infinite;
+}
+
+/* Phone ring wobble animation */
+@keyframes phoneRing {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: rotate(-8deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: rotate(8deg);
+  }
+}
+
+.animate-phone-ring {
+  animation: phoneRing 0.8s ease-in-out infinite;
+}
+
+/* Particle flow along path */
+@keyframes particleFlow {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+.particle-flow {
+  offset-rotate: 0deg;
+  animation: particleFlow 3s ease-in-out infinite;
+}
+
+/* Signal wave emanation */
+@keyframes signalWave {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-signal-wave {
+  animation: signalWave 1.5s ease-out infinite;
+}
+
+/* Central hub rotation */
+@keyframes hubRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.hub-rotate {
+  animation: hubRotate 20s linear infinite;
+}
+
+/* Caller active indicator */
+@keyframes callerActive {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(14, 165, 233, 0);
+  }
+}
+
+.caller-active {
+  animation: callerActive 2s ease-in-out infinite;
+}
+
+/* Tech available indicator */
+@keyframes techAvailable {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+}
+
+.tech-available {
+  animation: techAvailable 2s ease-in-out infinite;
+}
+
+/* Emergency pulse */
+@keyframes emergencyPulse {
+  0%, 100% {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.7);
+  }
+}
+
+.emergency-pulse {
+  animation: emergencyPulse 1s ease-in-out infinite;
+}
+
+/* Subtle background pulse for the entire page */
+@keyframes backgroundPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.bg-pulse {
+  animation: backgroundPulse 4s ease-in-out infinite;
+}
