@@ -4,23 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark theme for particle visibility
-        background: 'rgba(3, 7, 18, 0.95)', // Dark with slight transparency
-        canvas: 'rgba(5, 10, 20, 0.9)', // Card backgrounds
-        surface: 'rgba(10, 15, 30, 0.95)', // Section backgrounds
-        border: 'rgba(30, 41, 59, 0.8)', // Slate borders
-        'border-hover': 'rgba(51, 65, 85, 0.9)',
-        foreground: '#f8fafc', // Light text
-        muted: '#94a3b8', // Muted text (slate-400)
-        secondary: '#0ea5e9', // Sky blue for voice/communication theme
+        // Enhanced dark theme
+        background: '#0a0a0a', // Near black base
+        surface: '#111111', // Slightly lighter surface
+        canvas: 'rgba(255, 255, 255, 0.02)', // Glass container background
+        border: 'rgba(255, 255, 255, 0.1)', // Default border
+        'border-hover': 'rgba(255, 255, 255, 0.2)', // Hover border
+        foreground: '#ffffff', // Primary text
+        muted: 'rgba(255, 255, 255, 0.6)', // Muted text
+        secondary: '#22c55e', // Green accent (legacy alias)
         danger: '#ef4444',
         warning: '#f59e0b',
         primary: {
-          DEFAULT: '#0ea5e9',
-          foreground: '#ffffff',
+          DEFAULT: '#22c55e', // Green primary
+          foreground: '#000000', // Black text on green
         },
         accent: {
-          DEFAULT: '#8b5cf6', // Purple accent
+          DEFAULT: '#8b5cf6', // Purple accent for particles
           foreground: '#ffffff',
         },
       },

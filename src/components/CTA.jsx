@@ -11,23 +11,23 @@ export function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative bg-slate-900/70 border border-slate-700 rounded-2xl p-8 md:p-12 overflow-hidden"
+          className="relative overflow-hidden"
         >
           {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
           <div className="relative z-10 text-center">
             {/* Icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/10 mb-6">
-              <Phone className="w-8 h-8 text-secondary" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
+              <Phone className="w-8 h-8 text-primary" />
             </div>
 
             {/* Headline */}
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-4">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-4">
               Stop losing emergency jobs
             </h2>
-            <p className="text-lg text-muted mb-8 max-w-xl mx-auto">
+            <p className="text-lg text-white/60 mb-8 max-w-xl mx-auto">
               See a live call flow, dispatch packet, and dashboard tailored to your service area.
             </p>
 
@@ -48,17 +48,17 @@ export function CTA() {
             </div>
 
             {/* Trust signals */}
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted">
+            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-secondary rounded-full" />
+                <span className="w-2 h-2 bg-primary rounded-full" />
                 Free trial available
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-secondary rounded-full" />
+                <span className="w-2 h-2 bg-primary rounded-full" />
                 No credit card required
               </div>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-secondary rounded-full" />
+                <span className="w-2 h-2 bg-primary rounded-full" />
                 Setup in under a week
               </div>
             </div>

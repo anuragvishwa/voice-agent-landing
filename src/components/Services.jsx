@@ -21,7 +21,7 @@ function ServiceCard({ service, index }) {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       whileHover={{ y: -4, scale: 1.02 }}
-      className="group relative p-5 rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm hover:border-slate-700 transition-colors cursor-default"
+      className="group relative p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-colors cursor-default shadow-sm"
     >
       {/* Glow effect on hover */}
       <div
@@ -43,10 +43,10 @@ function ServiceCard({ service, index }) {
       </div>
 
       {/* Content */}
-      <h3 className="font-medium text-foreground text-sm mb-1 leading-tight">
+      <h3 className="font-medium text-white text-sm mb-1 leading-tight">
         {service.name}
       </h3>
-      <p className="text-xs text-muted leading-relaxed">{service.tagline}</p>
+      <p className="text-xs text-white/50 leading-relaxed">{service.tagline}</p>
 
       {/* Bottom accent line */}
       <div
@@ -69,13 +69,13 @@ export function Services() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-700 bg-slate-900/60 mb-4">
-            <span className="font-mono text-xs text-muted">Industries We Serve</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.02] mb-4">
+            <span className="font-mono text-xs text-white/60">Industries We Serve</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground mb-4">
+          <h2 className="font-serif text-3xl sm:text-4xl font-light text-white mb-4">
             Built for service businesses
           </h2>
-          <p className="text-muted max-w-xl mx-auto">
+          <p className="text-white/60 max-w-xl mx-auto">
             Purpose-built voice AI for contractors and restoration companies that can't afford to miss a call.
           </p>
         </motion.div>

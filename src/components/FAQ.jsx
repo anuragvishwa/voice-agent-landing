@@ -36,17 +36,17 @@ function FAQItem({ faq, isOpen, onToggle, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="border-b border-slate-700"
+      className="border-b border-white/10"
     >
       <button
         onClick={onToggle}
         className="w-full py-5 flex items-center justify-between text-left group"
       >
-        <span className="font-medium text-foreground group-hover:text-secondary transition-colors">
+        <span className="font-medium text-white group-hover:text-primary transition-colors">
           {faq.question}
         </span>
         <ChevronDown
-          className={`w-5 h-5 text-muted transition-transform duration-300 ${
+          className={`w-5 h-5 text-white/60 transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -60,7 +60,7 @@ function FAQItem({ faq, isOpen, onToggle, index }) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-muted leading-relaxed">
+            <p className="pb-5 text-white/50 leading-relaxed">
               {faq.answer}
             </p>
           </motion.div>
@@ -84,20 +84,20 @@ export function FAQ() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 mb-6">
-            <HelpCircle className="w-4 h-4 text-secondary" />
-            <span className="font-mono text-xs text-muted uppercase tracking-widest">FAQ</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] mb-6">
+            <HelpCircle className="w-4 h-4 text-primary" />
+            <span className="font-mono text-xs text-white/60 uppercase tracking-widest">FAQ</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground mb-4">
+          <h2 className="font-serif text-3xl sm:text-4xl font-light text-white mb-4">
             Frequently asked questions
           </h2>
-          <p className="text-muted">
+          <p className="text-white/60">
             Everything you need to know about VoiceCapture.
           </p>
         </motion.div>
 
         {/* FAQ List */}
-        <div className="bg-slate-900/60 border border-slate-700 rounded-xl overflow-hidden">
+        <div className="bg-white/[0.02] border border-white/10 rounded-xl overflow-hidden shadow-sm">
           <div className="px-6">
             {faqs.map((faq, index) => (
               <FAQItem
@@ -117,10 +117,10 @@ export function FAQ() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center text-sm text-muted mt-8"
+          className="text-center text-sm text-white/50 mt-8"
         >
           Have more questions?{' '}
-          <a href="#demo" className="text-secondary hover:underline">
+          <a href="#demo" className="text-primary hover:underline">
             Book a call with us
           </a>
         </motion.p>

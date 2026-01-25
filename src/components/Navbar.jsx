@@ -25,13 +25,13 @@ export function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#030712]/90 backdrop-blur-md border-b border-slate-800' : 'bg-transparent'
+        scrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 shadow-sm' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 text-foreground">
-          <Phone className="w-5 h-5 text-secondary" />
+        <Link to="/" className="flex items-center gap-2 text-white">
+          <Phone className="w-5 h-5 text-primary" />
           <span className="font-mono text-sm font-medium">VoiceCapture</span>
         </Link>
 
@@ -42,7 +42,7 @@ export function Navbar() {
               <Link
                 key={link.label}
                 to={link.href}
-                className="font-mono text-sm text-muted hover:text-foreground transition-colors"
+                className="font-mono text-sm transition-colors text-white/60 hover:text-white"
               >
                 {link.label}
               </Link>
@@ -50,7 +50,7 @@ export function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="font-mono text-sm text-muted hover:text-foreground transition-colors"
+                className="font-mono text-sm transition-colors text-white/60 hover:text-white"
               >
                 {link.label}
               </a>
@@ -62,14 +62,14 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           <a
             href="#demo"
-            className="hidden sm:block bg-secondary text-white px-4 py-2 rounded-md font-mono text-sm font-medium hover:bg-secondary/90 transition-colors"
+            className="hidden sm:block bg-primary text-black px-4 py-2 rounded-xl font-mono text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
           >
             Book a Demo
           </a>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -79,14 +79,14 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#030712]/95 backdrop-blur-md border-t border-slate-800">
+        <div className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-md border-t border-white/5">
           <div className="px-6 py-4 space-y-4">
             {navLinks.map((link) => (
               link.isRoute ? (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="block font-mono text-sm text-muted hover:text-foreground transition-colors"
+                  className="block font-mono text-sm text-white/60 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -95,7 +95,7 @@ export function Navbar() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="block font-mono text-sm text-muted hover:text-foreground transition-colors"
+                  className="block font-mono text-sm text-white/60 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -104,7 +104,7 @@ export function Navbar() {
             ))}
             <a
               href="#demo"
-              className="block bg-secondary text-white px-4 py-2 rounded-md font-mono text-sm font-medium text-center"
+              className="block bg-primary text-black px-4 py-2 rounded-xl font-mono text-sm font-medium text-center shadow-lg shadow-primary/20"
             >
               Book a Demo
             </a>

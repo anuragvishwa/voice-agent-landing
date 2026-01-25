@@ -42,8 +42,8 @@ function StepCard({ step, index, isActive }) {
     <div
       className={`group relative rounded-xl transition-all duration-300 p-5
         ${isActive
-          ? 'bg-slate-900/80 border border-slate-700 shadow-sm'
-          : 'bg-transparent border border-transparent hover:bg-slate-900/40'
+          ? 'bg-white/[0.02] border border-white/10 shadow-sm'
+          : 'bg-transparent border border-transparent hover:bg-white/[0.02]'
         }
       `}
     >
@@ -52,8 +52,8 @@ function StepCard({ step, index, isActive }) {
         <span
           className={`flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full font-mono text-xs font-medium transition-colors duration-300 ${
             isActive
-              ? 'bg-secondary text-white'
-              : 'bg-muted/10 text-muted'
+              ? 'bg-primary text-black'
+              : 'bg-white/10 text-white/60'
           }`}
         >
           {index + 1}
@@ -64,12 +64,12 @@ function StepCard({ step, index, isActive }) {
           <div className="flex items-center gap-2 mb-2">
             <Icon
               className={`w-5 h-5 transition-colors duration-300 ${
-                isActive ? 'text-secondary' : 'text-muted/50'
+                isActive ? 'text-primary' : 'text-white/40'
               }`}
             />
             <h3
               className={`font-medium text-base transition-colors duration-300 ${
-                isActive ? 'text-foreground' : 'text-muted'
+                isActive ? 'text-white' : 'text-white/60'
               }`}
             >
               {step.title}
@@ -79,7 +79,7 @@ function StepCard({ step, index, isActive }) {
           {/* Description */}
           <p
             className={`text-sm leading-relaxed transition-colors duration-300 ${
-              isActive ? 'text-muted' : 'text-muted/40'
+              isActive ? 'text-white/60' : 'text-white/40'
             }`}
           >
             {step.description}
@@ -95,9 +95,9 @@ function StepConnector({ activeStep, totalSteps }) {
     <div className="hidden lg:flex absolute top-8 left-0 right-0 z-0 justify-between px-[3rem]">
       {[...Array(totalSteps - 1)].map((_, i) => (
         <div key={i} className="flex-1 flex items-center mx-4">
-          <div className="relative w-full h-px bg-border rounded-full overflow-hidden">
+          <div className="relative w-full h-px bg-white/10 rounded-full overflow-hidden">
             <div
-              className={`absolute inset-y-0 left-0 bg-secondary/50 rounded-full transition-all duration-500 ${
+              className={`absolute inset-y-0 left-0 bg-primary/50 rounded-full transition-all duration-500 ${
                 activeStep > i ? 'w-full' : 'w-0'
               }`}
             />
@@ -157,14 +157,14 @@ export function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 mb-6">
-            <ArrowRight className="w-4 h-4 text-secondary" />
-            <span className="font-mono text-xs text-muted uppercase tracking-widest">How It Works</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] mb-6">
+            <ArrowRight className="w-4 h-4 text-primary" />
+            <span className="font-mono text-xs text-white/60 uppercase tracking-widest">How It Works</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-6">
             From ring to dispatch in under 60 seconds
           </h2>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto">
             No complex setup. No learning curve.
             <br className="hidden sm:block" />
             Just calls → intake → dispatch → jobs.
@@ -192,20 +192,20 @@ export function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 bg-slate-900/60 border border-slate-700 rounded-xl p-6"
+          className="mt-16 bg-white/[0.02] border border-white/10 rounded-xl p-6"
         >
-          <h3 className="font-medium text-foreground mb-4">Security & Compliance</h3>
-          <div className="grid sm:grid-cols-3 gap-4 text-sm text-muted">
+          <h3 className="font-medium text-white mb-4">Security & Compliance</h3>
+          <div className="grid sm:grid-cols-3 gap-4 text-sm text-white/50">
             <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
+              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
               <span>Configurable recording disclosures</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
+              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
               <span>Encrypted data in transit and at rest</span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
+              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
               <span>Retention policies you control</span>
             </div>
           </div>

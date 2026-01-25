@@ -58,20 +58,20 @@ function FeatureBlock({ feature, index }) {
         {/* Content */}
         <div className={isReversed ? 'lg:order-2' : 'lg:order-1'}>
           {/* Label badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-700 bg-slate-900/60 mb-6">
-            <Icon className="w-4 h-4 text-secondary" />
-            <span className="font-mono text-xs uppercase tracking-widest text-secondary">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.02] mb-6">
+            <Icon className="w-4 h-4 text-primary" />
+            <span className="font-mono text-xs uppercase tracking-widest text-primary">
               {feature.label}
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-foreground mb-4 leading-tight">
+          <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-white mb-4 leading-tight">
             {feature.title}
           </h3>
 
           {/* Description */}
-          <p className="text-base lg:text-lg text-muted leading-relaxed mb-6 max-w-xl">
+          <p className="text-base lg:text-lg text-white/60 leading-relaxed mb-6 max-w-xl">
             {feature.description}
           </p>
 
@@ -79,8 +79,8 @@ function FeatureBlock({ feature, index }) {
           <ul className="space-y-3">
             {feature.bullets.map((bullet, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-secondary rounded-full mt-2 flex-shrink-0" />
-                <span className="text-sm lg:text-base text-muted">{bullet}</span>
+                <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-sm lg:text-base text-white/50">{bullet}</span>
               </li>
             ))}
           </ul>
@@ -88,7 +88,7 @@ function FeatureBlock({ feature, index }) {
 
         {/* Illustration */}
         <div className={isReversed ? 'lg:order-1' : 'lg:order-2'}>
-          <div className="rounded-xl bg-[#0f172a] border border-[#1e293b] overflow-hidden shadow-2xl">
+          <div className="rounded-xl bg-white/[0.02] border border-white/10 overflow-hidden shadow-lg">
             <Illustration />
           </div>
         </div>
@@ -99,27 +99,27 @@ function FeatureBlock({ feature, index }) {
 
 export function Features() {
   return (
-    <section id="features" className="py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="features" className="py-24 px-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 mb-6">
-            <BarChart3 className="w-4 h-4 text-secondary" />
-            <span className="font-mono text-xs uppercase tracking-widest text-muted">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] mb-6">
+            <BarChart3 className="w-4 h-4 text-primary" />
+            <span className="font-mono text-xs uppercase tracking-widest text-white/60">
               Core Capabilities
             </span>
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-6">
             From ring to dispatch in seconds
           </h2>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto">
             Every call becomes a tracked, triaged, dispatched job — without relying on someone being free to pick up.
           </p>
         </div>
 
         {/* Feature blocks */}
-        <div className="divide-y divide-border">
+        <div className="divide-y divide-white/10">
           {features.map((feature, index) => (
             <FeatureBlock
               key={index}

@@ -7,12 +7,12 @@ export function Button({
   className,
   ...props
 }) {
-  const baseStyles = 'inline-flex items-center justify-center rounded-md font-mono text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
+  const baseStyles = 'inline-flex items-center justify-center rounded-xl font-mono text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50';
 
   const variants = {
-    default: 'bg-secondary text-white hover:bg-secondary/90',
-    outline: 'border border-border bg-transparent hover:bg-surface text-foreground',
-    ghost: 'hover:bg-surface text-foreground',
+    default: 'bg-primary text-black hover:bg-primary/90 shadow-lg shadow-primary/20',
+    outline: 'border border-white/10 bg-white/5 hover:bg-white/10 text-white',
+    ghost: 'hover:bg-white/5 text-white',
   };
 
   const sizes = {

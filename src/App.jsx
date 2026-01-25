@@ -8,29 +8,24 @@ import { Pricing } from './components/Pricing';
 import { FAQ } from './components/FAQ';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
-import { GlobalParticleBackground } from './components/GlobalParticleBackground';
+import { ParticleBackground } from './components/ParticleBackground';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#030712] relative overflow-x-hidden">
-      {/* Page-wide particle background - covers entire scrollable area */}
-      <GlobalParticleBackground />
-
-      {/* All content above particles */}
-      <div className="relative z-10">
-        <Navbar />
-        <main>
-          <Hero />
-          <Services />
-          <WhyExists />
-          <Features />
-          <HowItWorks />
-          <Pricing />
-          <FAQ />
-          <CTA />
-        </main>
-        <Footer />
-      </div>
+    <div className="min-h-screen bg-[#0a0a0a] relative overflow-x-hidden">
+      <ParticleBackground />
+      <Navbar />
+      <main>
+        <Hero />
+        <Services />
+        <WhyExists />
+        <Features />
+        <HowItWorks />
+        <Pricing />
+        <FAQ />
+        <CTA />
+      </main>
+      <Footer />
     </div>
   );
 }

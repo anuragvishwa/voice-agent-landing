@@ -64,15 +64,15 @@ function PricingCard({ tier, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative bg-slate-900/70 border rounded-xl p-6 flex flex-col h-full ${
+      className={`relative bg-white/[0.02] border rounded-xl p-6 flex flex-col h-full shadow-sm ${
         tier.popular
-          ? 'border-secondary shadow-lg shadow-secondary/20 scale-105 z-10'
-          : 'border-slate-700'
+          ? 'border-primary shadow-lg shadow-primary/20 scale-105 z-10'
+          : 'border-white/10'
       }`}
     >
       {tier.popular && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-secondary text-white text-xs font-mono">
+          <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary text-black text-xs font-mono">
             <Sparkles className="w-3 h-3" />
             Most Popular
           </div>
@@ -81,26 +81,26 @@ function PricingCard({ tier, index }) {
 
       {/* Header */}
       <div className="mb-6">
-        <h3 className="font-mono text-sm uppercase tracking-widest text-muted mb-2">
+        <h3 className="font-mono text-sm uppercase tracking-widest text-white/60 mb-2">
           {tier.name}
         </h3>
         <div className="flex items-baseline gap-1">
-          <span className="font-serif text-4xl font-light text-foreground">
+          <span className="font-serif text-4xl font-light text-white">
             {tier.price}
           </span>
           {tier.period && (
-            <span className="text-sm text-muted">{tier.period}</span>
+            <span className="text-sm text-white/60">{tier.period}</span>
           )}
         </div>
-        <p className="mt-2 text-sm text-muted">{tier.description}</p>
+        <p className="mt-2 text-sm text-white/50">{tier.description}</p>
       </div>
 
       {/* Features */}
       <ul className="flex-1 space-y-3 mb-6">
         {tier.features.map((feature, i) => (
           <li key={i} className="flex items-start gap-2">
-            <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
-            <span className="text-sm text-muted">{feature}</span>
+            <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span className="text-sm text-white/50">{feature}</span>
           </li>
         ))}
       </ul>
@@ -129,13 +129,13 @@ export function Pricing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 mb-6">
-            <span className="font-mono text-xs text-muted uppercase tracking-widest">Simple Pricing</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] mb-6">
+            <span className="font-mono text-xs text-white/60 uppercase tracking-widest">Simple Pricing</span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-6">
             ROI from day one
           </h2>
-          <p className="text-lg text-muted max-w-2xl mx-auto">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto">
             One captured emergency call pays for months of service.
             No per-seat pricing. No hidden fees.
           </p>
@@ -156,10 +156,10 @@ export function Pricing() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-secondary/20 bg-secondary/5">
-            <Sparkles className="w-5 h-5 text-secondary" />
-            <span className="text-sm text-muted">
-              Ask about <span className="text-secondary font-medium">performance-based pilots</span> — pay per booked inspection with a cap.
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-primary/20 bg-primary/10">
+            <Sparkles className="w-5 h-5 text-primary" />
+            <span className="text-sm text-white/60">
+              Ask about <span className="text-primary font-medium">performance-based pilots</span> — pay per booked inspection with a cap.
             </span>
           </div>
         </motion.div>
