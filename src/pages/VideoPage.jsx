@@ -1,7 +1,60 @@
-import { Player } from '@remotion/player';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Phone } from 'lucide-react';
-import { VoiceLandingVideo } from '../../remotion/VoiceLandingVideo';
+import { ArrowLeft, Phone, Loader2 } from 'lucide-react';
+
+// Lazy load the Player to avoid SSR/hydration issues on Vercel
+const RemotionPlayer = lazy(() =>
+  import('@remotion/player').then(mod => ({ default: mod.Player }))
+);
+
+// Loading placeholder
+function PlayerLoading() {
+  return (
+    <div className="w-full aspect-video bg-[#0a0f15] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="w-8 h-8 text-sky-400 animate-spin" />
+        <span className="text-white/60 font-mono text-sm">Loading video...</span>
+      </div>
+    </div>
+  );
+}
+
+// Player wrapper component that only renders on client
+function VideoPlayer() {
+  const [isClient, setIsClient] = useState(false);
+  const [VideoComponent, setVideoComponent] = useState(null);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Dynamically import the video component
+    import('../../remotion/VoiceLandingVideo').then(mod => {
+      setVideoComponent(() => mod.VoiceLandingVideo);
+    });
+  }, []);
+
+  if (!isClient || !VideoComponent) {
+    return <PlayerLoading />;
+  }
+
+  return (
+    <Suspense fallback={<PlayerLoading />}>
+      <RemotionPlayer
+        component={VideoComponent}
+        durationInFrames={1410}
+        compositionWidth={1920}
+        compositionHeight={1080}
+        fps={30}
+        style={{
+          width: '100%',
+          aspectRatio: '16/9',
+        }}
+        controls
+        autoPlay
+        loop
+      />
+    </Suspense>
+  );
+}
 
 export function VideoPage() {
   return (
@@ -39,19 +92,7 @@ export function VideoPage() {
             <div className="absolute -inset-1 bg-gradient-to-r from-sky-500/20 via-purple-500/20 to-sky-500/20 blur-xl opacity-50" />
 
             <div className="relative">
-              <Player
-                component={VoiceLandingVideo}
-                durationInFrames={1410}
-                compositionWidth={1920}
-                compositionHeight={1080}
-                fps={30}
-                style={{
-                  width: '100%',
-                  aspectRatio: '16/9',
-                }}
-                controls
-                autoPlay={false}
-              />
+              <VideoPlayer />
             </div>
           </div>
 
@@ -60,21 +101,16 @@ export function VideoPage() {
             <p className="text-white/60 mb-6">
               Ready to stop losing emergency jobs?
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="/#demo"
-                className="bg-sky-500 text-white px-8 py-3 rounded-md font-mono text-sm font-medium hover:bg-sky-500/90 transition-colors"
-              >
-                Book a Demo
-              </a>
-              <Link
-                to="/"
-                className="border border-white/20 px-8 py-3 rounded-md font-mono text-sm text-white/80 hover:bg-white/5 transition-colors"
-              >
-                Learn More
-              </Link>
-            </div>
+            <a
+              href="https://cal.com/anuragvishwa/voice-agent"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-sky-500 text-white px-8 py-3 rounded-md font-mono text-sm font-medium hover:bg-sky-500/90 transition-colors"
+            >
+              Book a Demo
+            </a>
           </div>
+
         </div>
       </main>
     </div>

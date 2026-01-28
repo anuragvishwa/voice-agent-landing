@@ -10,19 +10,47 @@ import { loadFont } from "@remotion/google-fonts/Inter";
 
 const { fontFamily } = loadFont();
 
-// Problem card component
+// Animated danger background
+const DangerBackground = () => {
+  const frame = useCurrentFrame();
+  const pulseIntensity = 0.04 + Math.sin(frame * 0.04) * 0.02;
+
+  return (
+    <>
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse at 50% 20%, rgba(239, 68, 68, ${pulseIntensity}) 0%, transparent 60%)`,
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse at 20% 80%, rgba(239, 68, 68, ${pulseIntensity * 0.5}) 0%, transparent 40%)`,
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse at 80% 70%, rgba(239, 68, 68, ${pulseIntensity * 0.5}) 0%, transparent 40%)`,
+        }}
+      />
+    </>
+  );
+};
+
+// Problem card component with enhanced animations
 const ProblemCard = ({
   title,
   description,
   icon,
   delay,
   index,
+  isLostRevenue,
 }: {
   title: string;
   description: string;
   icon: string;
   delay: number;
   index: number;
+  isLostRevenue?: boolean;
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -30,21 +58,28 @@ const ProblemCard = ({
   const entryProgress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 20, stiffness: 100 },
+    config: { damping: 15, stiffness: 120 },
   });
 
-  const shake = Math.sin(frame * 0.1 + index) * 2;
+  // More dramatic shake for the Lost Revenue card
+  const shakeIntensity = isLostRevenue ? 4 : 2;
+  const shakeSpeed = isLostRevenue ? 0.15 : 0.1;
+  const shake = Math.sin(frame * shakeSpeed + index) * shakeIntensity * (entryProgress > 0.9 ? 1 : 0);
+
+  // Glow effect for Lost Revenue card
+  const glowPulse = isLostRevenue ? 0.3 + Math.sin(frame * 0.08) * 0.15 : 0;
 
   return (
     <div
       style={{
-        backgroundColor: "rgba(239, 68, 68, 0.08)",
-        border: "1px solid rgba(239, 68, 68, 0.25)",
+        backgroundColor: isLostRevenue ? "rgba(239, 68, 68, 0.12)" : "rgba(239, 68, 68, 0.08)",
+        border: `1px solid rgba(239, 68, 68, ${isLostRevenue ? 0.4 : 0.25})`,
         borderRadius: 16,
         padding: "32px 28px",
         opacity: entryProgress,
-        transform: `translateY(${(1 - entryProgress) * 30}px) translateX(${shake}px)`,
+        transform: `translateY(${(1 - entryProgress) * 40}px) translateX(${shake}px) scale(${0.9 + entryProgress * 0.1})`,
         width: 280,
+        boxShadow: isLostRevenue ? `0 0 40px rgba(239, 68, 68, ${glowPulse})` : "none",
       }}
     >
       <div
@@ -58,6 +93,7 @@ const ProblemCard = ({
           justifyContent: "center",
           marginBottom: 20,
           fontSize: 28,
+          transform: isLostRevenue ? `scale(${1 + Math.sin(frame * 0.1) * 0.05})` : "none",
         }}
       >
         {icon}
@@ -86,8 +122,8 @@ const ProblemCard = ({
   );
 };
 
-// Animated stat counter
-const StatCounter = ({ value, label }: { value: string; label: string }) => {
+// Animated stat counter with counting effect
+const StatCounter = ({ targetValue, label }: { targetValue: number; label: string }) => {
   const frame = useCurrentFrame();
 
   const opacity = interpolate(frame, [180, 210], [0, 1], {
@@ -101,7 +137,16 @@ const StatCounter = ({ value, label }: { value: string; label: string }) => {
     easing: Easing.out(Easing.back(2)),
   });
 
-  const pulse = 1 + Math.sin(frame * 0.08) * 0.03;
+  const pulse = 1 + Math.sin(frame * 0.08) * 0.04;
+  const glowPulse = 20 + Math.sin(frame * 0.06) * 10;
+
+  // Animated counter that counts up
+  const countProgress = interpolate(frame, [210, 270], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const displayValue = Math.floor(targetValue * countProgress);
 
   return (
     <div
@@ -113,20 +158,21 @@ const StatCounter = ({ value, label }: { value: string; label: string }) => {
     >
       <div
         style={{
-          fontSize: 72,
+          fontSize: 80,
           fontWeight: 300,
           color: "#ef4444",
           fontFamily: "Georgia, serif",
           lineHeight: 1,
+          textShadow: `0 0 ${glowPulse}px rgba(239, 68, 68, 0.5)`,
         }}
       >
-        {value}
+        ${displayValue.toLocaleString()}+
       </div>
       <div
         style={{
           fontSize: 18,
           color: "#94a3b8",
-          marginTop: 8,
+          marginTop: 12,
         }}
       >
         {label}
@@ -149,6 +195,9 @@ export const ProblemScene = () => {
     easing: Easing.out(Easing.cubic),
   });
 
+  // Badge pulse animation
+  const badgePulse = 1 + Math.sin(frame * 0.1) * 0.03;
+
   const problems = [
     {
       title: "Calls Go Unanswered",
@@ -169,6 +218,7 @@ export const ProblemScene = () => {
       title: "Lost Revenue",
       description: "Competitors answer first. High-ticket jobs slip away.",
       icon: "💸",
+      isLostRevenue: true,
     },
   ];
 
@@ -179,12 +229,8 @@ export const ProblemScene = () => {
         fontFamily,
       }}
     >
-      {/* Subtle danger gradient overlay */}
-      <AbsoluteFill
-        style={{
-          background: "radial-gradient(ellipse at 50% 20%, rgba(239, 68, 68, 0.06) 0%, transparent 60%)",
-        }}
-      />
+      {/* Animated danger gradient overlays */}
+      <DangerBackground />
 
       {/* Content */}
       <AbsoluteFill
@@ -195,7 +241,7 @@ export const ProblemScene = () => {
           padding: "80px 100px",
         }}
       >
-        {/* Badge */}
+        {/* Badge with pulse */}
         <div
           style={{
             display: "inline-flex",
@@ -207,6 +253,8 @@ export const ProblemScene = () => {
             borderRadius: 9999,
             marginBottom: 32,
             opacity: titleOpacity,
+            transform: `scale(${badgePulse})`,
+            boxShadow: "0 0 20px rgba(239, 68, 68, 0.2)",
           }}
         >
           <span style={{ fontSize: 14 }}>⚠️</span>
@@ -223,7 +271,7 @@ export const ProblemScene = () => {
           </span>
         </div>
 
-        {/* Title */}
+        {/* Title with animated gradient */}
         <h2
           style={{
             fontSize: 64,
@@ -236,7 +284,17 @@ export const ProblemScene = () => {
             fontFamily: "Georgia, serif",
           }}
         >
-          Customers call <span style={{ color: "#ef4444" }}>multiple companies</span>
+          Customers call{" "}
+          <span
+            style={{
+              background: `linear-gradient(${90 + frame * 0.5}deg, #ef4444 0%, #f87171 50%, #ef4444 100%)`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontWeight: 500,
+            }}
+          >
+            multiple companies
+          </span>
         </h2>
 
         <p
@@ -251,7 +309,7 @@ export const ProblemScene = () => {
           The first to answer, qualify, and dispatch wins the job.
         </p>
 
-        {/* Problem cards */}
+        {/* Problem cards with staggered animations */}
         <div
           style={{
             display: "flex",
@@ -263,25 +321,27 @@ export const ProblemScene = () => {
             <ProblemCard
               key={problem.title}
               {...problem}
-              delay={50 + i * 20}
+              delay={50 + i * 25}
               index={i}
+              isLostRevenue={problem.isLostRevenue}
             />
           ))}
         </div>
 
-        {/* Stat */}
+        {/* Stat with animated counter */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: 24,
-            padding: "24px 48px",
+            padding: "28px 56px",
             backgroundColor: "rgba(239, 68, 68, 0.08)",
-            border: "1px solid rgba(239, 68, 68, 0.2)",
+            border: "1px solid rgba(239, 68, 68, 0.25)",
             borderRadius: 20,
+            boxShadow: `0 0 ${30 + Math.sin(frame * 0.05) * 15}px rgba(239, 68, 68, 0.15)`,
           }}
         >
-          <StatCounter value="$3,500+" label="Average value of a missed water damage call" />
+          <StatCounter targetValue={3500} label="Average value of a missed water damage call" />
         </div>
       </AbsoluteFill>
     </AbsoluteFill>
