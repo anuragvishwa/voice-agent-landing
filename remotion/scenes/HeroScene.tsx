@@ -400,7 +400,8 @@ export const HeroScene = () => {
           Never miss an{" "}
           <span
             style={{
-              background: `linear-gradient(${gradientAngle}deg, #0ea5e9 0%, #38bdf8 40%, #8b5cf6 70%, #7dd3fc 100%)`,
+              display: "inline-block",
+              background: `linear-gradient(${gradientAngle}deg, #0ea5e9, #38bdf8, #8b5cf6, #7dd3fc)`,
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",

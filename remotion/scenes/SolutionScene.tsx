@@ -342,7 +342,8 @@ export const SolutionScene = () => {
           From ring to dispatch in{" "}
           <span
             style={{
-              background: `linear-gradient(${gradientAngle}deg, #0ea5e9 0%, #38bdf8 40%, #8b5cf6 70%, #06b6d4 100%)`,
+              display: "inline-block",
+              background: `linear-gradient(${gradientAngle}deg, #0ea5e9, #38bdf8, #8b5cf6, #06b6d4)`,
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",

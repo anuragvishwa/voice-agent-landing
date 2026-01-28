@@ -305,7 +305,8 @@ export const CTAScene = () => {
           Stop losing{" "}
           <span
             style={{
-              background: `linear-gradient(${gradientAngle}deg, #0ea5e9 0%, #38bdf8 30%, #8b5cf6 60%, #7dd3fc 100%)`,
+              display: "inline-block",
+              background: `linear-gradient(${gradientAngle}deg, #0ea5e9, #38bdf8, #8b5cf6, #7dd3fc)`,
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
