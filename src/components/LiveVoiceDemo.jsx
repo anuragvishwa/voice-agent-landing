@@ -11,6 +11,7 @@ import '@livekit/components-styles';
 
 const LIVEKIT_URL = import.meta.env.VITE_LIVEKIT_URL || 'wss://voice-sdk-m8va715z.livekit.cloud';
 const TOKEN_SERVER_URL = import.meta.env.VITE_TOKEN_SERVER_URL || 'http://localhost:3001';
+const TOKEN_API_KEY = import.meta.env.VITE_TOKEN_API_KEY || '';
 
 // Idle state - Start button with pulsing effect
 function IdleState({ onStart }) {
@@ -326,7 +327,10 @@ export function LiveVoiceDemo() {
       // Fetch token from token server
       const response = await fetch(`${TOKEN_SERVER_URL}/api/token`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': TOKEN_API_KEY,
+        },
         body: JSON.stringify({ agentName: 'blanc-receptionist' }),
       });
 

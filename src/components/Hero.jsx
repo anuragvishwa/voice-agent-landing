@@ -25,18 +25,20 @@ export function Hero() {
 
           {/* Headline */}
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white mb-6 leading-[1.1]">
-            Never miss an emergency call or message again
+            Never Miss Another Emergency Call
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-            AI-powered intake and dispatch system that answers every call and WhatsApp message, captures the right details, and routes to on-call teams instantly.
+            VoiceCapture answers 24/7, captures the right details, and dispatches the job—so you don't lose work to voicemail.
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <a
-              href="#demo"
+              href="https://cal.com/anuragvishwa/voice-agent"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-primary text-black px-8 py-3 rounded-xl font-mono text-sm font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
             >
               Book a 15-min Demo

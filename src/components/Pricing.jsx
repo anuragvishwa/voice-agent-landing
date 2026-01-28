@@ -140,9 +140,11 @@ export function Pricing() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center"
         >
-          <Button size="lg" className="px-8">
-            Book a Demo
-          </Button>
+          <a href="https://cal.com/anuragvishwa/voice-agent" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="px-8">
+              Book a Demo
+            </Button>
+          </a>
           <p className="mt-4 text-sm text-white/40">
             No credit card required. See ROI in your first week.
           </p>

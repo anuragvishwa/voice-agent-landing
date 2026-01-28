@@ -17,7 +17,7 @@ export function Navbar() {
   const navLinks = [
     { label: 'Features', href: '#features' },
     { label: 'How it Works', href: '#how-it-works' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'ROI', href: '#pricing' },
     { label: 'FAQ', href: '#faq' },
     { label: 'Demo', href: '/video', isRoute: true },
   ];

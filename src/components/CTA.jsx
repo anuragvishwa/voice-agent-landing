@@ -29,10 +29,12 @@ export function CTA() {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Button size="lg" className="gap-2">
-                <Calendar className="w-4 h-4" />
-                Book a 15-min Demo
-              </Button>
+              <a href="https://cal.com/anuragvishwa/voice-agent" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="gap-2">
+                  <Calendar className="w-4 h-4" />
+                  Book a 15-min Demo
+                </Button>
+              </a>
               <Button variant="outline" size="lg" className="gap-2">
                 <FileText className="w-4 h-4" />
                 Get a Call-Flow Audit
