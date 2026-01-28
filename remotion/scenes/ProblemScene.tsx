@@ -288,8 +288,10 @@ export const ProblemScene = () => {
           <span
             style={{
               background: `linear-gradient(${90 + frame * 0.5}deg, #ef4444 0%, #f87171 50%, #ef4444 100%)`,
+              backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              color: "transparent",
               fontWeight: 500,
             }}
           >

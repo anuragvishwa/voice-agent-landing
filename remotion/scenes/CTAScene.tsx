@@ -306,8 +306,10 @@ export const CTAScene = () => {
           <span
             style={{
               background: `linear-gradient(${gradientAngle}deg, #0ea5e9 0%, #38bdf8 30%, #8b5cf6 60%, #7dd3fc 100%)`,
+              backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              color: "transparent",
               fontWeight: 500,
             }}
           >

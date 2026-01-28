@@ -401,8 +401,10 @@ export const HeroScene = () => {
           <span
             style={{
               background: `linear-gradient(${gradientAngle}deg, #0ea5e9 0%, #38bdf8 40%, #8b5cf6 70%, #7dd3fc 100%)`,
+              backgroundClip: "text",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              color: "transparent",
               fontWeight: 600,
             }}
           >
