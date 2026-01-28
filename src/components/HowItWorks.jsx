@@ -5,32 +5,32 @@ import { ArrowRight, Phone, MessageSquare, Filter, Send, CheckCircle } from 'luc
 const steps = [
   {
     number: '01',
-    title: 'Call Comes In',
-    description: 'System answers immediately with your brand greeting and disclosure.',
+    title: 'Call or Message Comes In',
+    description: 'Answers calls in 2-3 rings, WhatsApp messages instantly. Brand greeting and recording disclosure.',
     icon: Phone,
   },
   {
     number: '02',
     title: 'Capture Details',
-    description: 'AI collects address, issue type, severity, and insurance info.',
+    description: 'AI collects name, phone, address, property type, damage type, and insurance.',
     icon: MessageSquare,
   },
   {
     number: '03',
-    title: 'Triage & Qualify',
-    description: 'Automatically classify as Emergency, Urgent, or Routine.',
+    title: 'Safety Triage',
+    description: 'Detect flooding, electrical hazards, fire aftermath. Classify by urgency.',
     icon: Filter,
   },
   {
     number: '04',
     title: 'Dispatch Team',
-    description: 'Alert on-call techs via SMS/Slack. One-tap acknowledgment.',
+    description: 'Alert on-call PM. Auto-create ticket. Live transfer for critical cases.',
     icon: Send,
   },
   {
     number: '05',
     title: 'Job Created',
-    description: 'Full intake record, recording, transcript, and outcome tracking.',
+    description: 'Full intake record, recording, transcript. Critical cases dispatched <2 hours.',
     icon: CheckCircle,
   },
 ];
@@ -167,7 +167,7 @@ export function HowItWorks() {
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
             No complex setup. No learning curve.
             <br className="hidden sm:block" />
-            Just calls → intake → dispatch → jobs.
+            Just calls & messages → intake → dispatch → jobs.
           </p>
         </motion.div>
 

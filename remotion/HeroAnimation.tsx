@@ -1,3 +1,4 @@
+import React from "react";
 import {
   useCurrentFrame,
   useVideoConfig,
@@ -5,14 +6,28 @@ import {
   spring,
   AbsoluteFill,
 } from "remotion";
+import {
+  Phone,
+  Headphones,
+  User,
+  Check,
+  Send,
+  Clock,
+  MapPin,
+  Home,
+  Droplets,
+  Flame,
+  Brush,
+  Building,
+} from "lucide-react";
 
 // Service scenarios that rotate each loop
 const scenarios = [
-  { service: "Water Damage", emoji: "💧", caller: "Pipe burst flooding basement!", color: "#0ea5e9", emergency: "Water leak detected" },
-  { service: "Fire Damage", emoji: "🔥", caller: "Smoke damage from kitchen fire", color: "#f97316", emergency: "Fire damage reported" },
-  { service: "Roofing", emoji: "🏠", caller: "Storm damaged my roof!", color: "#ef4444", emergency: "Roof damage urgent" },
-  { service: "Carpet Cleaning", emoji: "🧹", caller: "Emergency stain removal needed", color: "#a855f7", emergency: "Priority cleaning" },
-  { service: "Construction", emoji: "🏗️", caller: "Foundation crack emergency", color: "#eab308", emergency: "Structural concern" },
+  { service: "Water Damage", icon: Droplets, caller: "Pipe burst flooding basement!", color: "#22c55e", emergency: "Water leak detected" },
+  { service: "Fire Damage", icon: Flame, caller: "Smoke damage from kitchen fire", color: "#f97316", emergency: "Fire damage reported" },
+  { service: "Roofing", icon: Home, caller: "Storm damaged my roof!", color: "#ef4444", emergency: "Roof damage urgent" },
+  { service: "Carpet Cleaning", icon: Brush, caller: "Emergency stain removal needed", color: "#8b5cf6", emergency: "Priority cleaning" },
+  { service: "Construction", icon: Building, caller: "Foundation crack emergency", color: "#eab308", emergency: "Structural concern" },
 ];
 
 // Bezier curve helper for particle paths
@@ -27,36 +42,25 @@ const getBezierPoint = (
   return { x, y };
 };
 
-// Floating background particles - expanded for full canvas
+// Floating background particles - minimal and subtle
 const BackgroundParticles = () => {
   const frame = useCurrentFrame();
 
   const particles = [
-    { x: 80, y: 60, size: 2, speed: 0.3, phase: 0 },
-    { x: 200, y: 100, size: 3, speed: 0.25, phase: 1 },
-    { x: 350, y: 50, size: 2, speed: 0.35, phase: 2 },
-    { x: 500, y: 120, size: 2.5, speed: 0.28, phase: 3 },
-    { x: 650, y: 80, size: 2, speed: 0.32, phase: 4 },
-    { x: 800, y: 140, size: 3, speed: 0.22, phase: 5 },
-    { x: 950, y: 70, size: 2, speed: 0.3, phase: 6 },
-    { x: 1100, y: 110, size: 2.5, speed: 0.27, phase: 7 },
-    { x: 120, y: 450, size: 2, speed: 0.33, phase: 8 },
-    { x: 280, y: 480, size: 2, speed: 0.29, phase: 9 },
-    { x: 450, y: 460, size: 2.5, speed: 0.31, phase: 10 },
-    { x: 620, y: 490, size: 2, speed: 0.26, phase: 11 },
-    { x: 780, y: 470, size: 3, speed: 0.34, phase: 12 },
-    { x: 940, y: 450, size: 2, speed: 0.28, phase: 13 },
-    { x: 1080, y: 480, size: 2.5, speed: 0.32, phase: 14 },
-    { x: 180, y: 280, size: 2, speed: 0.3, phase: 15 },
-    { x: 1020, y: 300, size: 2, speed: 0.27, phase: 16 },
+    { x: 150, y: 80, size: 2, speed: 0.2, phase: 0 },
+    { x: 450, y: 100, size: 2, speed: 0.18, phase: 1 },
+    { x: 750, y: 70, size: 2, speed: 0.22, phase: 2 },
+    { x: 1050, y: 90, size: 2, speed: 0.2, phase: 3 },
+    { x: 300, y: 450, size: 2, speed: 0.19, phase: 4 },
+    { x: 900, y: 460, size: 2, speed: 0.21, phase: 5 },
   ];
 
   return (
     <>
       {particles.map((p, i) => {
-        const offsetX = Math.sin(frame * 0.02 * p.speed + p.phase) * 20;
-        const offsetY = Math.cos(frame * 0.015 * p.speed + p.phase) * 15;
-        const opacity = 0.15 + Math.sin(frame * 0.03 + p.phase) * 0.1;
+        const offsetX = Math.sin(frame * 0.01 * p.speed + p.phase) * 10;
+        const offsetY = Math.cos(frame * 0.008 * p.speed + p.phase) * 8;
+        const opacity = 0.06 + Math.sin(frame * 0.02 + p.phase) * 0.03;
 
         return (
           <div
@@ -68,38 +72,12 @@ const BackgroundParticles = () => {
               width: p.size,
               height: p.size,
               borderRadius: "50%",
-              backgroundColor: i % 2 === 0 ? "#0ea5e9" : "#8b5cf6",
+              backgroundColor: i % 2 === 0 ? "#22c55e" : "#8b5cf6",
               opacity,
             }}
           />
         );
       })}
-      {/* Connection lines */}
-      <svg style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-        {[
-          [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6],
-          [8, 9], [9, 10], [10, 11], [11, 12], [12, 13],
-        ].map(([a, b], i) => {
-          const p1 = particles[a];
-          const p2 = particles[b];
-          const x1 = p1.x + Math.sin(frame * 0.02 * p1.speed + p1.phase) * 20;
-          const y1 = p1.y + Math.cos(frame * 0.015 * p1.speed + p1.phase) * 15;
-          const x2 = p2.x + Math.sin(frame * 0.02 * p2.speed + p2.phase) * 20;
-          const y2 = p2.y + Math.cos(frame * 0.015 * p2.speed + p2.phase) * 15;
-
-          return (
-            <line
-              key={i}
-              x1={x1}
-              y1={y1}
-              x2={x2}
-              y2={y2}
-              stroke="rgba(14, 165, 233, 0.06)"
-              strokeWidth="1"
-            />
-          );
-        })}
-      </svg>
     </>
   );
 };
@@ -124,7 +102,7 @@ const NodeLabel = ({
   const progress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 20, stiffness: 120 },
+    config: { damping: 25, stiffness: 120 },
   });
 
   if (frame < delay) return null;
@@ -168,12 +146,14 @@ const CallerPopup = ({
   const slideProgress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 15, stiffness: 100 },
+    config: { damping: 25, stiffness: 120 },
   });
 
-  const slideX = interpolate(slideProgress, [0, 1], [-40, 0]);
+  const slideX = interpolate(slideProgress, [0, 1], [-30, 0]);
 
   if (frame < delay) return null;
+
+  const IconComponent = scenario.icon;
 
   return (
     <div
@@ -183,15 +163,15 @@ const CallerPopup = ({
         top: y,
         transform: `translateX(${slideX}px)`,
         opacity: slideProgress,
-        backgroundColor: "rgba(15, 23, 42, 0.95)",
-        border: `1px solid ${scenario.color}60`,
-        borderRadius: 10,
+        backgroundColor: "rgba(10, 10, 10, 0.95)",
+        border: `1px solid ${scenario.color}40`,
+        borderRadius: 8,
         padding: "10px 14px",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+        boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-        <span style={{ fontSize: 16 }}>{scenario.emoji}</span>
+        <IconComponent size={16} color={scenario.color} />
         <span
           style={{
             fontFamily: "monospace",
@@ -207,7 +187,7 @@ const CallerPopup = ({
         style={{
           fontFamily: "system-ui, sans-serif",
           fontSize: 12,
-          color: "#94a3b8",
+          color: "rgba(255, 255, 255, 0.5)",
           fontStyle: "italic",
           maxWidth: 180,
         }}
@@ -218,7 +198,7 @@ const CallerPopup = ({
   );
 };
 
-// Emergency popup - dramatic alert
+// Emergency popup - professional alert
 const EmergencyPopup = ({
   x,
   y,
@@ -236,12 +216,12 @@ const EmergencyPopup = ({
   const scaleProgress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 10, stiffness: 200 },
+    config: { damping: 25, stiffness: 120 },
   });
 
-  const pulse = 1 + Math.sin(frame * 0.2) * 0.03;
-
   if (frame < delay) return null;
+
+  const IconComponent = scenario.icon;
 
   return (
     <div
@@ -249,23 +229,23 @@ const EmergencyPopup = ({
         position: "absolute",
         left: x,
         top: y,
-        transform: `translate(-50%, -50%) scale(${scaleProgress * pulse})`,
+        transform: `translate(-50%, -50%) scale(${scaleProgress})`,
         opacity: scaleProgress,
         backgroundColor: "rgba(127, 29, 29, 0.95)",
-        border: "2px solid #ef4444",
-        borderRadius: 10,
+        border: "1px solid rgba(239, 68, 68, 0.6)",
+        borderRadius: 8,
         padding: "12px 18px",
-        boxShadow: "0 0 30px rgba(239, 68, 68, 0.4)",
+        boxShadow: "0 0 12px rgba(239, 68, 68, 0.2)",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-        <span style={{ fontSize: 18 }}>{scenario.emoji}</span>
+        <IconComponent size={18} color="#fca5a5" />
         <span
           style={{
             fontFamily: "system-ui, sans-serif",
             fontSize: 14,
             color: "#fca5a5",
-            fontWeight: 700,
+            fontWeight: 600,
             textTransform: "uppercase",
             letterSpacing: 1,
           }}
@@ -304,10 +284,10 @@ const DispatchPopup = ({
   const slideProgress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 12, stiffness: 100 },
+    config: { damping: 25, stiffness: 120 },
   });
 
-  const slideX = interpolate(slideProgress, [0, 1], [40, 0]);
+  const slideX = interpolate(slideProgress, [0, 1], [30, 0]);
 
   if (frame < delay) return null;
 
@@ -321,17 +301,21 @@ const DispatchPopup = ({
         opacity: slideProgress,
         backgroundColor: isComplete
           ? "rgba(20, 83, 45, 0.95)"
-          : "rgba(15, 23, 42, 0.95)",
-        border: `1px solid ${isComplete ? "#22c55e" : "rgba(34, 197, 94, 0.4)"}`,
-        borderRadius: 10,
+          : "rgba(10, 10, 10, 0.95)",
+        border: `1px solid ${isComplete ? "rgba(34, 197, 94, 0.5)" : "rgba(34, 197, 94, 0.3)"}`,
+        borderRadius: 8,
         padding: "10px 14px",
         boxShadow: isComplete
-          ? "0 0 20px rgba(34, 197, 94, 0.3)"
-          : "0 4px 20px rgba(0,0,0,0.4)",
+          ? "0 0 12px rgba(34, 197, 94, 0.15)"
+          : "0 4px 16px rgba(0,0,0,0.3)",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-        <span style={{ fontSize: 16 }}>{isComplete ? "✅" : "📤"}</span>
+        {isComplete ? (
+          <Check size={16} color="#4ade80" />
+        ) : (
+          <Send size={16} color="#4ade80" />
+        )}
         <span
           style={{
             fontFamily: "system-ui, sans-serif",
@@ -374,7 +358,7 @@ const TimeCounter = ({
   const progress = spring({
     frame: frame - 20,
     fps,
-    config: { damping: 20, stiffness: 100 },
+    config: { damping: 25, stiffness: 120 },
   });
 
   // Calculate elapsed "seconds" (scaled for animation)
@@ -395,13 +379,13 @@ const TimeCounter = ({
         fontFamily: "system-ui, sans-serif",
       }}
     >
-      <span style={{ fontSize: 14 }}>⏱️</span>
-      <span style={{ fontSize: 12, color: "#64748b" }}>Ring → Dispatch:</span>
+      <Clock size={14} color="rgba(255, 255, 255, 0.4)" />
+      <span style={{ fontSize: 12, color: "rgba(255, 255, 255, 0.4)" }}>Ring → Dispatch:</span>
       <span
         style={{
           fontSize: 14,
           fontWeight: 600,
-          color: isComplete ? "#22c55e" : "#94a3b8",
+          color: isComplete ? "#22c55e" : "rgba(255, 255, 255, 0.5)",
           fontFamily: "monospace",
         }}
       >
@@ -444,7 +428,7 @@ const PhoneRingEffect = ({
               width: radius * 2,
               height: radius * 2,
               borderRadius: "50%",
-              border: "3px solid #0ea5e9",
+              border: "3px solid #22c55e",
               transform: "translate(-50%, -50%)",
               opacity,
               boxShadow: "0 0 20px rgba(14, 165, 233, 0.3)",
@@ -496,7 +480,7 @@ const SoundWaves = ({
             key={i}
             d={`M ${50 + Math.cos(((baseAngle - 40) * Math.PI) / 180) * radius} ${50 + Math.sin(((baseAngle - 40) * Math.PI) / 180) * radius} A ${radius} ${radius} 0 0 1 ${50 + Math.cos(((baseAngle + 40) * Math.PI) / 180) * radius} ${50 + Math.sin(((baseAngle + 40) * Math.PI) / 180) * radius}`}
             fill="none"
-            stroke="#0ea5e9"
+            stroke="#22c55e"
             strokeWidth="3"
             opacity={opacity}
           />
@@ -529,7 +513,7 @@ const AudioWaveform = ({
   const entryProgress = spring({
     frame: frame - 30,
     fps,
-    config: { damping: 15, stiffness: 100 },
+    config: { damping: 25, stiffness: 120 },
   });
 
   if (!isActive && frame < 30) return null;
@@ -550,7 +534,7 @@ const AudioWaveform = ({
       {Array.from({ length: bars }).map((_, i) => {
         const phase = i * 0.5;
         const baseHeight = isActive
-          ? 15 + Math.sin(frame * 0.2 + phase) * 12 * intensity
+          ? 12 + Math.sin(frame * 0.12 + phase) * 8 * intensity
           : 5;
         const height = Math.max(4, baseHeight);
 
@@ -560,10 +544,9 @@ const AudioWaveform = ({
             style={{
               width: barWidth,
               height,
-              backgroundColor: "#0ea5e9",
+              backgroundColor: "#22c55e",
               borderRadius: 2,
-              opacity: 0.6 + Math.sin(frame * 0.15 + phase) * 0.3,
-              boxShadow: isActive ? "0 0 8px rgba(14, 165, 233, 0.5)" : "none",
+              opacity: 0.4 + Math.sin(frame * 0.08 + phase) * 0.2,
             }}
           />
         );
@@ -579,14 +562,14 @@ const ProgressArc = ({ progress, stage }: { progress: number; stage: string }) =
   const centerX = 600;
   const centerY = 470;
   const radius = 30;
-  const strokeWidth = 5;
+  const strokeWidth = 4;
 
   // Color based on stage
   const getColor = () => {
     if (stage === "complete") return "#22c55e";
     if (stage === "dispatch") return "#22c55e";
     if (stage === "emergency") return "#ef4444";
-    return "#0ea5e9";
+    return "#22c55e";
   };
 
   const color = getColor();
@@ -594,7 +577,7 @@ const ProgressArc = ({ progress, stage }: { progress: number; stage: string }) =
   const dashOffset = circumference * (1 - progress);
 
   const glowIntensity =
-    stage === "complete" ? 0.5 + Math.sin(frame * 0.1) * 0.3 : 0.3;
+    stage === "complete" ? 0.2 + Math.sin(frame * 0.06) * 0.1 : 0.15;
 
   return (
     <svg
@@ -612,7 +595,7 @@ const ProgressArc = ({ progress, stage }: { progress: number; stage: string }) =
         cy={radius + strokeWidth}
         r={radius}
         fill="none"
-        stroke="rgba(100, 116, 139, 0.2)"
+        stroke="rgba(255, 255, 255, 0.1)"
         strokeWidth={strokeWidth}
       />
       {/* Progress circle */}
@@ -656,9 +639,9 @@ const DataCapture = ({
   const frame = useCurrentFrame();
 
   const icons = [
-    { emoji: "📍", delay: 0, startAngle: 0 },
-    { emoji: "🏠", delay: 15, startAngle: 120 },
-    { emoji: "💧", delay: 30, startAngle: 240 },
+    { Icon: MapPin, delay: 0, startAngle: 0 },
+    { Icon: Home, delay: 15, startAngle: 120 },
+    { Icon: Droplets, delay: 30, startAngle: 240 },
   ];
 
   return (
@@ -693,24 +676,26 @@ const DataCapture = ({
           const orbitFrame = iconFrame - enterDuration;
           const orbitRadius = 80;
           const angle =
-            ((icon.startAngle + orbitFrame * 3) * Math.PI) / 180;
+            ((icon.startAngle + orbitFrame * 2) * Math.PI) / 180;
           x = hubX + Math.cos(angle) * orbitRadius;
           y = hubY + Math.sin(angle) * orbitRadius;
           scale = 1;
-          opacity = 1;
+          opacity = 0.8;
         } else {
           // Absorb into center
           const absorbFrame = iconFrame - enterDuration - orbitDuration;
           const t = absorbFrame / absorbDuration;
           const orbitRadius = 80 * (1 - t);
           const finalAngle =
-            icon.startAngle + orbitDuration * 3 + absorbFrame * 5;
+            icon.startAngle + orbitDuration * 2 + absorbFrame * 3;
           const angle = (finalAngle * Math.PI) / 180;
           x = hubX + Math.cos(angle) * orbitRadius;
           y = hubY + Math.sin(angle) * orbitRadius;
           scale = 1 - t * 0.8;
-          opacity = 1 - t;
+          opacity = (1 - t) * 0.8;
         }
+
+        const IconComponent = icon.Icon;
 
         return (
           <div
@@ -721,71 +706,12 @@ const DataCapture = ({
               top: y,
               transform: `translate(-50%, -50%) scale(${scale})`,
               opacity,
-              fontSize: 24,
-              filter: "drop-shadow(0 0 10px rgba(139, 92, 246, 0.5))",
             }}
           >
-            {icon.emoji}
+            <IconComponent size={20} color="#8b5cf6" />
           </div>
         );
       })}
-    </>
-  );
-};
-
-// Confetti burst for success celebration
-const ConfettiBurst = ({
-  x,
-  y,
-  triggerFrame,
-}: {
-  x: number;
-  y: number;
-  triggerFrame: number;
-}) => {
-  const frame = useCurrentFrame();
-
-  const particleCount = 24;
-  const duration = 60;
-
-  if (frame < triggerFrame || frame > triggerFrame + duration) return null;
-
-  const t = (frame - triggerFrame) / duration;
-
-  const particles = Array.from({ length: particleCount }).map((_, i) => {
-    const angle = (i / particleCount) * Math.PI * 2 + (i % 3) * 0.2;
-    const speed = 80 + (i % 5) * 30;
-    const gravity = 150;
-    const size = 4 + (i % 3) * 2;
-    const colors = ["#22c55e", "#0ea5e9", "#8b5cf6", "#f59e0b"];
-    const color = colors[i % colors.length];
-
-    const px = x + Math.cos(angle) * speed * t;
-    const py = y + Math.sin(angle) * speed * t + gravity * t * t;
-    const opacity = 1 - t;
-    const scale = 1 - t * 0.5;
-
-    return { px, py, size, color, opacity, scale };
-  });
-
-  return (
-    <>
-      {particles.map((p, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            left: p.px,
-            top: p.py,
-            width: p.size,
-            height: p.size,
-            borderRadius: i % 2 === 0 ? "50%" : "2px",
-            backgroundColor: p.color,
-            opacity: p.opacity,
-            transform: `translate(-50%, -50%) scale(${p.scale}) rotate(${i * 30 + frame * 5}deg)`,
-          }}
-        />
-      ))}
     </>
   );
 };
@@ -876,7 +802,7 @@ const CurvedConnection = ({
         <path
           d={pathD}
           fill="none"
-          stroke="rgba(100, 116, 139, 0.15)"
+          stroke="rgba(255, 255, 255, 0.1)"
           strokeWidth="3"
           strokeDasharray="8 6"
         />
@@ -913,7 +839,7 @@ const CurvedConnection = ({
   );
 };
 
-// AI Hub with rotating rings and orbiting particles
+// AI Hub with rotating rings - professional version
 const AIProcessingHub = ({
   x,
   y,
@@ -931,27 +857,13 @@ const AIProcessingHub = ({
   const entryProgress = spring({
     frame: frame - 20,
     fps,
-    config: { damping: 15, stiffness: 100 },
+    config: { damping: 25, stiffness: 120 },
   });
 
   const size = 100;
   const color = isEmergency ? "#ef4444" : "#8b5cf6";
-  const rotationSpeed = isProcessing ? (isEmergency ? 4 : 2.5) : 1;
-  const pulseScale = isProcessing ? 1 + Math.sin(frame * 0.15) * 0.08 : 1;
-
-  // Orbiting particles
-  const orbitParticles = isProcessing
-    ? [0, 1, 2, 3, 4, 5].map((i) => {
-        const angle = (frame * 0.06 * rotationSpeed + (i * Math.PI) / 3) % (Math.PI * 2);
-        const orbitRadius = size * 0.65;
-        return {
-          x: Math.cos(angle) * orbitRadius,
-          y: Math.sin(angle) * orbitRadius,
-          opacity: 0.5 + Math.sin(frame * 0.1 + i) * 0.3,
-          size: 6 + (i % 2) * 2,
-        };
-      })
-    : [];
+  const rotationSpeed = isProcessing ? (isEmergency ? 1.5 : 1) : 0.5;
+  const pulseScale = isProcessing ? 1 + Math.sin(frame * 0.08) * 0.02 : 1;
 
   return (
     <div
@@ -963,21 +875,21 @@ const AIProcessingHub = ({
         opacity: entryProgress,
       }}
     >
-      {/* Outer glow */}
+      {/* Subtle outer glow */}
       <div
         style={{
           position: "absolute",
           left: "50%",
           top: "50%",
-          width: size * 2,
-          height: size * 2,
+          width: size * 1.6,
+          height: size * 1.6,
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${color}25 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${color}10 0%, transparent 70%)`,
           transform: "translate(-50%, -50%)",
         }}
       />
 
-      {/* Rotating outer ring */}
+      {/* Rotating outer ring - reduced to 4 segments */}
       <svg
         style={{
           position: "absolute",
@@ -985,12 +897,12 @@ const AIProcessingHub = ({
           top: "50%",
           width: size + 30,
           height: size + 30,
-          transform: `translate(-50%, -50%) rotate(${frame * rotationSpeed}deg)`,
+          transform: `translate(-50%, -50%) rotate(${frame * rotationSpeed * 0.5}deg)`,
         }}
       >
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-          const startAngle = i * 45 + 8;
-          const endAngle = i * 45 + 32;
+        {[0, 1, 2, 3].map((i) => {
+          const startAngle = i * 90 + 10;
+          const endAngle = i * 90 + 70;
           const r = (size + 20) / 2;
           const cx = (size + 30) / 2;
           const cy = (size + 30) / 2;
@@ -999,44 +911,8 @@ const AIProcessingHub = ({
           const x2 = cx + r * Math.cos((endAngle * Math.PI) / 180);
           const y2 = cy + r * Math.sin((endAngle * Math.PI) / 180);
           const segmentOpacity = isProcessing
-            ? 0.4 + Math.sin(frame * 0.12 + i) * 0.35
-            : 0.25;
-
-          return (
-            <path
-              key={i}
-              d={`M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`}
-              fill="none"
-              stroke={color}
-              strokeWidth="4"
-              strokeLinecap="round"
-              opacity={segmentOpacity}
-            />
-          );
-        })}
-      </svg>
-
-      {/* Inner rotating ring */}
-      <svg
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          width: size - 10,
-          height: size - 10,
-          transform: `translate(-50%, -50%) rotate(${-frame * rotationSpeed * 0.6}deg)`,
-        }}
-      >
-        {[0, 1, 2, 3].map((i) => {
-          const startAngle = i * 90 + 15;
-          const endAngle = i * 90 + 65;
-          const r = (size - 30) / 2;
-          const cx = (size - 10) / 2;
-          const cy = (size - 10) / 2;
-          const x1 = cx + r * Math.cos((startAngle * Math.PI) / 180);
-          const y1 = cy + r * Math.sin((startAngle * Math.PI) / 180);
-          const x2 = cx + r * Math.cos((endAngle * Math.PI) / 180);
-          const y2 = cy + r * Math.sin((endAngle * Math.PI) / 180);
+            ? 0.25 + Math.sin(frame * 0.06 + i) * 0.1
+            : 0.15;
 
           return (
             <path
@@ -1046,7 +922,7 @@ const AIProcessingHub = ({
               stroke={color}
               strokeWidth="3"
               strokeLinecap="round"
-              opacity={0.5}
+              opacity={segmentOpacity}
             />
           );
         })}
@@ -1058,66 +934,21 @@ const AIProcessingHub = ({
           width: size,
           height: size,
           borderRadius: "50%",
-          backgroundColor: `${color}15`,
-          border: `3px solid ${color}50`,
+          backgroundColor: `${color}10`,
+          border: `2px solid ${color}30`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: `0 0 40px ${color}30`,
+          boxShadow: `0 0 15px ${color}15`,
         }}
       >
-        <span style={{ fontSize: 40 }}>🎧</span>
+        <Headphones size={40} color={color} strokeWidth={1.5} />
       </div>
-
-      {/* Orbiting particles */}
-      {orbitParticles.map((p, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            width: p.size,
-            height: p.size,
-            borderRadius: "50%",
-            backgroundColor: color,
-            transform: `translate(calc(-50% + ${p.x}px), calc(-50% + ${p.y}px))`,
-            opacity: p.opacity,
-            boxShadow: `0 0 10px ${color}`,
-          }}
-        />
-      ))}
     </div>
   );
 };
 
-// Emergency flash overlay
-const EmergencyFlash = ({ triggerFrame }: { triggerFrame: number }) => {
-  const frame = useCurrentFrame();
-
-  const opacity = interpolate(
-    frame,
-    [triggerFrame, triggerFrame + 8, triggerFrame + 20],
-    [0, 0.35, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
-
-  if (opacity <= 0) return null;
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        backgroundColor: "#ef4444",
-        opacity,
-        pointerEvents: "none",
-      }}
-    />
-  );
-};
-
-// Success checkmark with glow
+// Success checkmark - clean and professional
 const SuccessCheckmark = ({
   delay,
   x,
@@ -1133,7 +964,7 @@ const SuccessCheckmark = ({
   const progress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 8, stiffness: 150 },
+    config: { damping: 25, stiffness: 120 },
   });
 
   if (frame < delay) return null;
@@ -1147,45 +978,19 @@ const SuccessCheckmark = ({
         transform: `translate(-50%, -50%) scale(${progress})`,
       }}
     >
-      {/* Expanding glow rings */}
-      {[0, 10, 20].map((d, i) => {
-        const ringProgress = interpolate(
-          frame - delay - d,
-          [0, 40],
-          [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-        );
-        return (
-          <div
-            key={i}
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              width: 50 + ringProgress * 60,
-              height: 50 + ringProgress * 60,
-              borderRadius: "50%",
-              border: "2px solid #22c55e",
-              transform: "translate(-50%, -50%)",
-              opacity: (1 - ringProgress) * 0.5,
-            }}
-          />
-        );
-      })}
       <div
         style={{
-          width: 50,
-          height: 50,
+          width: 40,
+          height: 40,
           borderRadius: "50%",
           backgroundColor: "#22c55e",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 0 30px rgba(34, 197, 94, 0.6)",
-          fontSize: 28,
+          boxShadow: "0 0 12px rgba(34, 197, 94, 0.25)",
         }}
       >
-        ✓
+        <Check size={22} color="white" strokeWidth={3} />
       </div>
     </div>
   );
@@ -1193,7 +998,7 @@ const SuccessCheckmark = ({
 
 // Visual node (phone or tech) - with icon
 const VisualNode = ({
-  emoji,
+  icon: IconComponent,
   x,
   y,
   delay,
@@ -1201,7 +1006,7 @@ const VisualNode = ({
   isActive,
   size = 80,
 }: {
-  emoji: string;
+  icon: React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>;
   x: number;
   y: number;
   delay: number;
@@ -1215,11 +1020,10 @@ const VisualNode = ({
   const entryProgress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 15, stiffness: 100 },
+    config: { damping: 25, stiffness: 120 },
   });
 
-  const wobble = isActive ? Math.sin(frame * 0.6) * 4 : 0;
-  const pulse = isActive ? 1 + Math.sin(frame * 0.15) * 0.1 : 1;
+  const pulse = isActive ? 1 + Math.sin(frame * 0.08) * 0.02 : 1;
 
   return (
     <div
@@ -1227,21 +1031,21 @@ const VisualNode = ({
         position: "absolute",
         left: x,
         top: y,
-        transform: `translate(-50%, -50%) scale(${entryProgress * pulse}) rotate(${wobble}deg)`,
+        transform: `translate(-50%, -50%) scale(${entryProgress * pulse})`,
         opacity: entryProgress,
       }}
     >
-      {/* Outer glow when active */}
+      {/* Subtle outer glow when active */}
       {isActive && (
         <div
           style={{
             position: "absolute",
             left: "50%",
             top: "50%",
-            width: size * 1.6,
-            height: size * 1.6,
+            width: size * 1.4,
+            height: size * 1.4,
             borderRadius: "50%",
-            background: `radial-gradient(circle, ${color}30 0%, transparent 70%)`,
+            background: `radial-gradient(circle, ${color}15 0%, transparent 70%)`,
             transform: "translate(-50%, -50%)",
           }}
         />
@@ -1251,15 +1055,15 @@ const VisualNode = ({
           width: size,
           height: size,
           borderRadius: "50%",
-          backgroundColor: `${color}15`,
-          border: `3px solid ${color}50`,
+          backgroundColor: `${color}10`,
+          border: `2px solid ${color}30`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: isActive ? `0 0 30px ${color}40` : "none",
+          boxShadow: isActive ? `0 0 12px ${color}20` : "none",
         }}
       >
-        <span style={{ fontSize: size * 0.45 }}>{emoji}</span>
+        <IconComponent size={size * 0.4} color={color} strokeWidth={1.5} />
       </div>
     </div>
   );
@@ -1276,16 +1080,6 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
   const fadeIn = interpolate(frame, [0, 30], [0, 1], { extrapolateRight: "clamp" });
   const fadeOut = interpolate(frame, [400, 450], [1, 0], { extrapolateLeft: "clamp" });
   const opacity = Math.min(fadeIn, fadeOut);
-
-  // Screen shake during emergency
-  const shakeX =
-    frame >= 140 && frame < 155
-      ? Math.sin(frame * 4) * 3 * (1 - (frame - 140) / 15)
-      : 0;
-  const shakeY =
-    frame >= 140 && frame < 155
-      ? Math.cos(frame * 3) * 2 * (1 - (frame - 140) / 15)
-      : 0;
 
   // Timeline stages
   const isRinging = frame >= 30 && frame < 70;
@@ -1321,10 +1115,8 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
   return (
     <AbsoluteFill
       style={{
-        background:
-          "linear-gradient(145deg, #0a0f18 0%, #0f172a 50%, #0a0f15 100%)",
+        background: "#0a0a0a",
         opacity,
-        transform: `translate(${shakeX}px, ${shakeY}px)`,
       }}
     >
       {/* Background particles */}
@@ -1344,7 +1136,7 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
         x={phoneX}
         y={phoneY + 60}
         isActive={isConnecting || isProcessing || isEmergency}
-        intensity={isEmergency ? 1.5 : 1}
+        intensity={isEmergency ? 1.2 : 1}
       />
 
       {/* Connection: Phone to Hub */}
@@ -1353,7 +1145,7 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
         end={{ x: hubX - 60, y: hubY }}
         controlOffset={{ x: 0, y: -60 }}
         delay={65}
-        color="#0ea5e9"
+        color="#22c55e"
         isActive={isConnecting || isProcessing || isEmergency}
       />
 
@@ -1370,11 +1162,11 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
 
       {/* Phone node */}
       <VisualNode
-        emoji="📞"
+        icon={Phone}
         x={phoneX}
         y={phoneY}
         delay={10}
-        color="#0ea5e9"
+        color="#22c55e"
         isActive={isRinging}
         size={80}
       />
@@ -1385,7 +1177,7 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
         x={phoneX}
         y={phoneY + 55}
         delay={15}
-        color="#64748b"
+        color="rgba(255, 255, 255, 0.4)"
       />
 
       {/* Caller popup */}
@@ -1405,7 +1197,7 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
         x={hubX}
         y={hubY + 70}
         delay={25}
-        color={isEmergency ? "#ef4444" : "#64748b"}
+        color={isEmergency ? "#ef4444" : "rgba(255, 255, 255, 0.4)"}
       />
 
       {/* Data capture icons */}
@@ -1418,7 +1210,7 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
 
       {/* Tech node */}
       <VisualNode
-        emoji="👨‍🔧"
+        icon={User}
         x={techX}
         y={techY}
         delay={180}
@@ -1433,7 +1225,7 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
         x={techX}
         y={techY + 55}
         delay={185}
-        color="#64748b"
+        color="rgba(255, 255, 255, 0.4)"
       />
 
       {/* Dispatch popup */}
@@ -1449,17 +1241,11 @@ export const HeroAnimation = ({ scenarioIndex = 0 }: { scenarioIndex?: number } 
       {/* Success checkmark on tech */}
       <SuccessCheckmark delay={225} x={techX + 35} y={techY - 35} />
 
-      {/* Confetti celebration */}
-      <ConfettiBurst x={techX} y={techY} triggerFrame={260} />
-
       {/* Progress arc at bottom */}
       <ProgressArc progress={progress} stage={getStage()} />
 
       {/* Time counter */}
       <TimeCounter startFrame={30} currentFrame={frame} isComplete={isComplete} />
-
-      {/* Emergency flash overlay */}
-      <EmergencyFlash triggerFrame={140} />
     </AbsoluteFill>
   );
 };

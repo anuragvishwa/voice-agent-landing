@@ -1,5 +1,6 @@
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { LiveVoiceDemo } from './components/LiveVoiceDemo';
 import { Services } from './components/Services';
 import { WhyExists } from './components/WhyExists';
 import { Features } from './components/Features';
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <LiveVoiceDemo />
         <Services />
         <WhyExists />
         <Features />

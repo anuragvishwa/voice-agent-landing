@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LiveKit Connection Test</title>
+  <script type="module">
+    import { Room } from 'https://esm.sh/livekit-client@2.17.0';
+
+    const log = (msg) => {
+      console.log(msg);
+      document.getElementById('log').textContent += msg + '\n';
+    };
+
+    document.getElementById('connect').onclick = async () => {
+      const status = document.getElementById('status');
+      status.textContent = 'Fetching token...';
+      document.getElementById('log').textContent = '';
+
+      try {
+        // Get token from server
+        const res = await fetch('http://localhost:3001/api/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to get token: ' + res.status);
+        }
+
+        const data = await res.json();
+        log('Token received, room: ' + data.room);
+        log('Server URL: ' + data.serverUrl);
+        log('Token length: ' + data.token.length);
+
+        // Decode token payload for debugging
+        const parts = data.token.split('.');
+        const payload = JSON.parse(atob(parts[1]));
+        log('Token payload: ' + JSON.stringify(payload, null, 2));
+
+        status.textContent = 'Connecting to LiveKit...';
+
+        const room = new Room();
+
+        room.on('connected', () => {
+          log('SUCCESS: Connected to room!');
+          status.textContent = 'Connected! Check console for details.';
+        });
+
+        room.on('disconnected', (reason) => {
+          log('Disconnected: ' + reason);
+        });
+
+        room.on('signalConnected', () => {
+          log('Signal connected!');
+        });
+
+        log('Attempting connection...');
+        await room.connect(data.serverUrl, data.token);
+        log('Connection call completed');
+
+      } catch (err) {
+        log('ERROR: ' + err.message);
+        log('Error stack: ' + err.stack);
+        status.textContent = 'Error: ' + err.message;
+      }
+    };
+  </script>
+</head>
+<body>
+  <h1>LiveKit Connection Test</h1>
+  <button id="connect">Test Connection</button>
+  <div id="status">Click button to test</div>
+  <pre id="log" style="background: #f0f0f0; padding: 10px; white-space: pre-wrap;"></pre>
+</body>
+</html>

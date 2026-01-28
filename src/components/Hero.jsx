@@ -20,17 +20,17 @@ export function Hero() {
           {/* Announcement Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] mb-8">
             <span className="w-2 h-4 bg-primary animate-blink rounded-sm" />
-            <span className="font-mono text-xs text-white/60">24/7 Voice AI &bull; Restoration Industry</span>
+            <span className="font-mono text-xs text-white/60">24/7 Voice & WhatsApp AI &bull; Restoration Industry</span>
           </div>
 
           {/* Headline */}
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white mb-6 leading-[1.1]">
-            Never miss an emergency call again
+            Never miss an emergency call or message again
           </h1>
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-            AI-powered intake and dispatch system that answers every call, captures the right details, and routes to on-call teams instantly.
+            AI-powered intake and dispatch system that answers every call and WhatsApp message, captures the right details, and routes to on-call teams instantly.
           </p>
 
           {/* CTAs */}
@@ -51,7 +51,7 @@ export function Hero() {
 
           {/* Feature Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            {["24/7 Intake", "Smart Triage", "Instant Dispatch", "Full Visibility", "Multi-Location"].map(
+            {["2-3 Ring Pickup", "WhatsApp Intake", "Safety Triage", "Instant Dispatch", "CRM Integration"].map(
               (item) => (
                 <span
                   key={item}

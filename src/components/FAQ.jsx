@@ -4,6 +4,14 @@ import { ChevronDown, HelpCircle } from 'lucide-react';
 
 const faqs = [
   {
+    question: 'Do you support WhatsApp messages?',
+    answer: "Yes! Customers can reach you via phone call or WhatsApp. Our AI handles both channels identically — collecting the same structured intake data, triaging by urgency, and dispatching your team. WhatsApp messages get instant responses 24/7.",
+  },
+  {
+    question: 'What information does the AI collect?',
+    answer: "We collect everything your team needs to dispatch: caller name, callback number, property address (verified), property type (residential, commercial, healthcare, multi-family), damage type and severity, insurance carrier, and any safety concerns like active flooding or electrical hazards. Same data collected via phone or WhatsApp.",
+  },
+  {
     question: 'Do we need to replace our current phone system?',
     answer: "No. We can run alongside your existing number via call forwarding (after-hours, overflow, or parallel). Or we can provision a dedicated emergency line for you.",
   },

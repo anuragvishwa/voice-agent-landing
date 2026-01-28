@@ -79,7 +79,7 @@ export function WhyExists() {
           <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl border border-red-500/20 bg-red-500/10">
             <span className="font-serif text-4xl font-light text-red-400">$3,500+</span>
             <span className="text-white/60 text-sm text-left">
-              Average value of a<br />missed water damage call
+              Average value of a<br />missed emergency call
             </span>
           </div>
         </motion.div>

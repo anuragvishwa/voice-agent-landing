@@ -20,7 +20,7 @@ export function Footer() {
               <span className="font-mono text-sm font-medium">VoiceCapture</span>
             </a>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              24/7 emergency call intake and dispatch for restoration operators.
+              24/7 emergency call and WhatsApp intake and dispatch for restoration operators.
               Never miss a high-ticket job again.
             </p>
           </div>

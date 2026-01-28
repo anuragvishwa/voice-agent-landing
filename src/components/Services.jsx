@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 const services = [
   { name: "Water Damage Restoration", icon: "💧", tagline: "24/7 emergency response", color: "#0ea5e9" },
   { name: "Fire Damage Restoration", icon: "🔥", tagline: "Smoke & fire cleanup", color: "#f97316" },
-  { name: "Contractor", icon: "🔨", tagline: "General contracting", color: "#64748b" },
+  { name: "Mold Remediation", icon: "🦠", tagline: "Mold testing & removal", color: "#22c55e" },
   { name: "Carpet Cleaning", icon: "🧹", tagline: "Deep cleaning services", color: "#a855f7" },
   { name: "General Contractor", icon: "🏗️", tagline: "Full-service building", color: "#eab308" },
   { name: "Construction Company", icon: "🏢", tagline: "Commercial & residential", color: "#6366f1" },
   { name: "Roofing Contractor", icon: "🏠", tagline: "Roof repair & install", color: "#ef4444" },
-  { name: "Environmental Consultant", icon: "🌿", tagline: "Environmental services", color: "#22c55e" },
+  { name: "Plumbing Services", icon: "🔧", tagline: "Emergency plumbing", color: "#64748b" },
   { name: "Home Inspector", icon: "🔍", tagline: "Property inspections", color: "#06b6d4" },
   { name: "Asbestos Testing", icon: "⚠️", tagline: "Safety testing", color: "#f59e0b" },
 ];

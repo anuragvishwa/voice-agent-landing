@@ -8,27 +8,27 @@ import {
 const features = [
   {
     icon: Phone,
-    label: 'Voice Intake',
-    title: 'Answer every call, capture every detail',
-    description: 'AI-powered system answers immediately with your brand greeting, collects structured details, and handles voicemails gracefully.',
+    label: 'Voice & WhatsApp Intake',
+    title: 'Answer every call and message, capture every detail',
+    description: 'AI-powered system answers calls in 2-3 rings and responds to WhatsApp messages instantly. Collects structured details and routes critical requests.',
     bullets: [
-      'Instant answer - no voicemail limbo',
+      'Answers calls in 2-3 rings, WhatsApp messages instantly',
       'Recording disclosure & brand greeting',
-      'Structured intake (address, severity, insurance)',
-      'Warm transfer for true emergencies',
+      'Structured intake: name, address, property type, damage, insurance',
+      'Live transfer for active leaks, commercial & healthcare',
     ],
     Illustration: VoiceIntakeIllustration,
   },
   {
     icon: Filter,
     label: 'Smart Triage',
-    title: 'Prioritize automatically, route intelligently',
-    description: 'Calls are classified into Emergency, Urgent, or Routine based on severity, then tagged and routed to the right team.',
+    title: 'Safety-first triage, intelligent routing',
+    description: 'Calls and messages are classified into Emergency, Urgent, or Routine. Safety scripts detect hazards before dispatch.',
     bullets: [
-      'Emergency: active leak, smoke, health risk',
+      'Emergency: active flooding, electrical risk, fire aftermath',
       'Urgent: same-day inspection needed',
       'Routine: estimates, scheduling',
-      'Geo-routing for multi-location teams',
+      'Safety scripts detect hazards before dispatch',
     ],
     Illustration: TriageIllustration,
   },
@@ -36,12 +36,12 @@ const features = [
     icon: Send,
     label: 'Instant Dispatch',
     title: 'Get the right tech on-site, fast',
-    description: 'Dispatch alerts go out via SMS, email, or Slack. Team members acknowledge with one tap. Escalation if no response.',
+    description: 'Dispatch alerts go out via SMS, email, or Slack. Auto-create job tickets. Critical cases dispatched within 2 hours.',
     bullets: [
-      'SMS/Email/Slack notifications',
+      'SMS/Email/Slack to on-call PM',
       'One-tap acknowledgment',
-      'Auto-escalation if no response',
-      'Customer ETA updates',
+      'Auto-create ticket in CRM (Jobber, ServiceTitan)',
+      'Dispatch within 2 hours for critical cases',
     ],
     Illustration: DispatchIllustration,
   },
@@ -114,7 +114,7 @@ export function Features() {
             From ring to dispatch in seconds
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            Every call becomes a tracked, triaged, dispatched job — without relying on someone being free to pick up.
+            Every call and message becomes a tracked, triaged, dispatched job — without relying on someone being free to pick up.
           </p>
         </div>
 
