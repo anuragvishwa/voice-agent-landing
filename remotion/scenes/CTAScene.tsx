@@ -252,7 +252,7 @@ export const CTAScene = () => {
             maxWidth: 700,
           }}
         >
-          Book a 15-minute demo and see how VoiceCapture transforms every call into a dispatched job.
+          Book a 15-minute demo and see how FlexDash transforms every call into a dispatched job.
         </p>
 
         {/* CTA Buttons */}
@@ -305,7 +305,7 @@ export const CTAScene = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <span style={{ fontFamily: "monospace", fontSize: 18, color: "white" }}>VoiceCapture</span>
+        <span style={{ fontFamily: "monospace", fontSize: 18, color: "white" }}>FlexDash</span>
       </div>
     </AbsoluteFill>
   );

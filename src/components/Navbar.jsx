@@ -32,7 +32,7 @@ export function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 text-white">
           <Phone className="w-5 h-5 text-primary" />
-          <span className="font-mono text-sm font-medium">VoiceCapture</span>
+          <span className="font-mono text-sm font-medium">FlexDash</span>
         </Link>
 
         {/* Desktop Nav Links */}

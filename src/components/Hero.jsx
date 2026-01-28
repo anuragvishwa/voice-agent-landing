@@ -30,7 +30,7 @@ export function Hero() {
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
-            VoiceCapture answers 24/7, captures the right details, and dispatches the job—so you don't lose work to voicemail.
+            FlexDash answers 24/7, captures the right details, and dispatches the job—so you don't lose work to voicemail.
           </p>
 
           {/* CTAs */}

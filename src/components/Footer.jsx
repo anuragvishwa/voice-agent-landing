@@ -17,7 +17,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <a href="/" className="flex items-center gap-2 text-white mb-4">
               <Phone className="w-5 h-5 text-primary" />
-              <span className="font-mono text-sm font-medium">VoiceCapture</span>
+              <span className="font-mono text-sm font-medium">FlexDash</span>
             </a>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               24/7 emergency call and WhatsApp intake and dispatch for restoration operators.
@@ -86,7 +86,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/60 text-sm font-mono">
-            &copy; {currentYear} VoiceCapture
+            &copy; {currentYear} FlexDash
           </p>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-primary rounded-full animate-blink" />

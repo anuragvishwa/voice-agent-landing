@@ -1,8 +1,14 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Calendar, FileText, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
+import { SampleDispatchModal } from './SampleDispatchModal';
+import { CallFlowAuditModal } from './CallFlowAuditModal';
 
 export function CTA() {
+  const [showDispatch, setShowDispatch] = useState(false);
+  const [showAudit, setShowAudit] = useState(false);
+
   return (
     <section id="demo" className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
@@ -35,11 +41,21 @@ export function CTA() {
                   Book a 15-min Demo
                 </Button>
               </a>
-              <Button variant="outline" size="lg" className="gap-2">
+              <Button
+                variant="outline"
+                size="lg"
+                className="gap-2"
+                onClick={() => setShowAudit(true)}
+              >
                 <FileText className="w-4 h-4" />
                 Get a Call-Flow Audit
               </Button>
-              <Button variant="outline" size="lg" className="gap-2">
+              <Button
+                variant="outline"
+                size="lg"
+                className="gap-2"
+                onClick={() => setShowDispatch(true)}
+              >
                 <ExternalLink className="w-4 h-4" />
                 See Sample Dispatch
               </Button>
@@ -55,14 +71,13 @@ export function CTA() {
                 <span className="w-2 h-2 bg-primary rounded-full" />
                 No credit card required
               </div>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary rounded-full" />
-                Setup in under a week
-              </div>
             </div>
           </div>
         </motion.div>
       </div>
+
+      <SampleDispatchModal isOpen={showDispatch} onClose={() => setShowDispatch(false)} />
+      <CallFlowAuditModal isOpen={showAudit} onClose={() => setShowAudit(false)} />
     </section>
   );
 }

@@ -15,7 +15,7 @@ export function VideoPage() {
           </Link>
           <div className="flex items-center gap-2">
             <Phone className="w-5 h-5 text-sky-400" />
-            <span className="font-mono text-sm font-medium">VoiceCapture</span>
+            <span className="font-mono text-sm font-medium">FlexDash</span>
           </div>
         </div>
       </header>
@@ -26,7 +26,7 @@ export function VideoPage() {
           {/* Title */}
           <div className="text-center mb-10">
             <h1 className="font-serif text-3xl sm:text-4xl font-light text-white mb-4">
-              See VoiceCapture in Action
+              See FlexDash in Action
             </h1>
             <p className="text-white/60 max-w-xl mx-auto">
               Watch how we transform missed calls into booked jobs — from ring to dispatch in seconds.

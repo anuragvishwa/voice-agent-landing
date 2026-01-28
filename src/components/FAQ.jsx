@@ -100,7 +100,7 @@ export function FAQ() {
             Frequently asked questions
           </h2>
           <p className="text-white/60">
-            Everything you need to know about VoiceCapture.
+            Everything you need to know about FlexDash.
           </p>
         </motion.div>
 
