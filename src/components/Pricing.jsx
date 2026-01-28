@@ -1,118 +1,75 @@
 import { motion } from 'framer-motion';
-import { Check, Sparkles } from 'lucide-react';
+import { TrendingUp, Clock, Phone, DollarSign, CheckCircle, Zap } from 'lucide-react';
 import { Button } from './ui/button';
 
-const tiers = [
+const timeline = [
   {
-    name: 'Starter',
-    price: '$497',
-    period: '/month',
-    description: 'Perfect for single-location operators',
-    features: [
-      '24/7 inbound intake',
-      'Dispatch alerts (SMS + Email)',
-      'Dashboard + call records',
-      'Basic scheduling integration',
-      'Up to 100 calls/month',
-    ],
-    cta: 'Start Free Trial',
-    ctaVariant: 'outline',
-    popular: false,
+    time: 'Day 0',
+    title: 'Go Live',
+    description: 'Number provisioned, AI trained on your brand',
+    icon: Zap,
   },
   {
-    name: 'Growth',
-    price: '$997',
-    period: '/month',
-    description: 'Multi-crew and multi-location teams',
-    features: [
-      'Everything in Starter',
-      'Unlimited calls',
-      'Geo-routing by zip/county',
-      'On-call rotations',
-      'Overflow escalation',
-      'Slack/Teams integration',
-      'SLA dashboards',
-    ],
-    cta: 'Start Free Trial',
-    ctaVariant: 'default',
-    popular: true,
+    time: 'First Call',
+    title: 'Instant Capture',
+    description: 'AI answers and alerts your team',
+    icon: Phone,
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    description: 'For franchise networks and large operations',
-    features: [
-      'Everything in Growth',
-      'SSO / SCIM',
-      'Custom retention policies',
-      'CRM integrations',
-      'Dedicated support',
-      'SLA guarantee',
-      'White-label options',
-    ],
-    cta: 'Contact Sales',
-    ctaVariant: 'outline',
-    popular: false,
+    time: 'Week 1',
+    title: '12+ Calls Saved',
+    description: 'After-hours calls captured',
+    icon: Clock,
+  },
+  {
+    time: 'Month 1',
+    title: 'ROI Achieved',
+    description: 'One job pays for the year',
+    icon: DollarSign,
+  },
+  {
+    time: 'Ongoing',
+    title: '24/7 Coverage',
+    description: 'Never miss a call again',
+    icon: CheckCircle,
   },
 ];
 
-function PricingCard({ tier, index }) {
+const stats = [
+  { value: '< 60s', label: 'Average answer time' },
+  { value: '12+', label: 'Calls saved per week' },
+  { value: '$3-15K', label: 'Typical job value' },
+];
+
+function TimelineItem({ item, index, isLast }) {
+  const Icon = item.icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative bg-white/[0.02] border rounded-xl p-6 flex flex-col h-full shadow-sm ${
-        tier.popular
-          ? 'border-primary shadow-lg shadow-primary/20 scale-105 z-10'
-          : 'border-white/10'
-      }`}
+      className="relative flex flex-col items-center text-center flex-1"
     >
-      {tier.popular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary text-black text-xs font-mono">
-            <Sparkles className="w-3 h-3" />
-            Most Popular
-          </div>
-        </div>
+      {/* Horizontal connector line */}
+      {!isLast && (
+        <div className="hidden lg:block absolute top-5 left-1/2 w-full h-0.5 bg-gradient-to-r from-primary/50 to-primary/20" />
       )}
 
-      {/* Header */}
-      <div className="mb-6">
-        <h3 className="font-mono text-sm uppercase tracking-widest text-white/60 mb-2">
-          {tier.name}
-        </h3>
-        <div className="flex items-baseline gap-1">
-          <span className="font-serif text-4xl font-light text-white">
-            {tier.price}
-          </span>
-          {tier.period && (
-            <span className="text-sm text-white/60">{tier.period}</span>
-          )}
-        </div>
-        <p className="mt-2 text-sm text-white/50">{tier.description}</p>
+      {/* Icon circle */}
+      <div className="relative z-10 w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center mb-4">
+        <Icon className="w-5 h-5 text-primary" />
       </div>
 
-      {/* Features */}
-      <ul className="flex-1 space-y-3 mb-6">
-        {tier.features.map((feature, i) => (
-          <li key={i} className="flex items-start gap-2">
-            <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-            <span className="text-sm text-white/50">{feature}</span>
-          </li>
-        ))}
-      </ul>
-
-      {/* CTA */}
-      <Button
-        variant={tier.ctaVariant}
-        className="w-full"
-        size="lg"
-      >
-        {tier.cta}
-      </Button>
+      {/* Content */}
+      <div className="px-2">
+        <span className="inline-block px-2 py-0.5 rounded bg-white/10 text-xs font-mono text-white/60 mb-2">
+          {item.time}
+        </span>
+        <h3 className="text-white font-medium text-sm lg:text-base mb-1">{item.title}</h3>
+        <p className="text-white/40 text-xs lg:text-sm">{item.description}</p>
+      </div>
     </motion.div>
   );
 }
@@ -130,38 +87,65 @@ export function Pricing() {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02] mb-6">
-            <span className="font-mono text-xs text-white/60 uppercase tracking-widest">Simple Pricing</span>
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <span className="font-mono text-xs text-white/60 uppercase tracking-widest">ROI From Day One</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-white mb-6">
-            ROI from day one
+            Value that compounds with every call
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
-            One captured emergency call pays for months of service.
-            No per-seat pricing. No hidden fees.
+            No complex setup. No learning curve.
+            One captured emergency pays for months of service.
           </p>
         </motion.div>
 
-        {/* Pricing Grid */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
-          {tiers.map((tier, index) => (
-            <PricingCard key={tier.name} tier={tier} index={index} />
-          ))}
+        {/* Horizontal Timeline */}
+        <div className="mb-16 bg-white/[0.02] border border-white/10 rounded-2xl p-8 lg:p-12">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-4">
+            {timeline.map((item, index) => (
+              <TimelineItem
+                key={item.time}
+                item={item}
+                index={index}
+                isLast={index === timeline.length - 1}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Performance-based note */}
+        {/* Stats Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="grid sm:grid-cols-3 gap-6 mb-12"
+        >
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="bg-white/[0.02] border border-white/10 rounded-xl p-6 text-center"
+            >
+              <div className="font-serif text-3xl text-primary mb-2">{stat.value}</div>
+              <div className="text-sm text-white/50">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 text-center"
+          className="text-center"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-primary/20 bg-primary/10">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <span className="text-sm text-white/60">
-              Ask about <span className="text-primary font-medium">performance-based pilots</span> — pay per booked inspection with a cap.
-            </span>
-          </div>
+          <Button size="lg" className="px-8">
+            Book a Demo
+          </Button>
+          <p className="mt-4 text-sm text-white/40">
+            No credit card required. See ROI in your first week.
+          </p>
         </motion.div>
       </div>
     </section>

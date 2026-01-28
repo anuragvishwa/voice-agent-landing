@@ -11,13 +11,9 @@ export function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative overflow-hidden"
+          className="bg-white/[0.02] border border-white/10 rounded-2xl p-8 lg:p-12"
         >
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-
-          <div className="relative z-10 text-center">
+          <div className="text-center">
             {/* Icon */}
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
               <Phone className="w-8 h-8 text-primary" />

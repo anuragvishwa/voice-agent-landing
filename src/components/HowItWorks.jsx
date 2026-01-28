@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { ArrowRight, Phone, MessageSquare, Filter, Send, CheckCircle } from 'lucide-react';
+import { ArrowRight, Phone, MessageSquare, Filter, Send, CheckCircle, Shield, Lock, Settings } from 'lucide-react';
 
 const steps = [
   {
     number: '01',
-    title: 'Call or Message Comes In',
+    title: 'Inbound Call',
     description: 'Answers calls in 2-3 rings, WhatsApp messages instantly. Brand greeting and recording disclosure.',
     icon: Phone,
   },
@@ -90,24 +90,6 @@ function StepCard({ step, index, isActive }) {
   );
 }
 
-function StepConnector({ activeStep, totalSteps }) {
-  return (
-    <div className="hidden lg:flex absolute top-8 left-0 right-0 z-0 justify-between px-[3rem]">
-      {[...Array(totalSteps - 1)].map((_, i) => (
-        <div key={i} className="flex-1 flex items-center mx-4">
-          <div className="relative w-full h-px bg-white/10 rounded-full overflow-hidden">
-            <div
-              className={`absolute inset-y-0 left-0 bg-primary/50 rounded-full transition-all duration-500 ${
-                activeStep > i ? 'w-full' : 'w-0'
-              }`}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export function HowItWorks() {
   const stepsRef = useRef(null);
   const [stepsInView, setStepsInView] = useState(false);
@@ -173,7 +155,6 @@ export function HowItWorks() {
 
         {/* Steps */}
         <div ref={stepsRef} className="relative">
-          <StepConnector activeStep={activeStep} totalSteps={steps.length} />
           <div className="grid md:grid-cols-5 gap-4 relative z-10">
             {steps.map((step, index) => (
               <StepCard
@@ -192,21 +173,33 @@ export function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 bg-white/[0.02] border border-white/10 rounded-xl p-6"
+          className="mt-16"
         >
-          <h3 className="font-medium text-white mb-4">Security & Compliance</h3>
-          <div className="grid sm:grid-cols-3 gap-4 text-sm text-white/50">
-            <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-              <span>Configurable recording disclosures</span>
+          <div className="text-center mb-8">
+            <h3 className="font-medium text-white text-lg">Security & Compliance</h3>
+            <p className="text-white/40 text-sm mt-2">Enterprise-grade protection for your data</p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            <div className="bg-white/[0.02] border border-white/10 rounded-xl p-5 text-center">
+              <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center">
+                <Shield className="w-5 h-5 text-primary" />
+              </div>
+              <h4 className="text-white text-sm font-medium mb-1">Recording Disclosures</h4>
+              <p className="text-white/40 text-xs">Configurable compliance settings</p>
             </div>
-            <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-              <span>Encrypted data in transit and at rest</span>
+            <div className="bg-white/[0.02] border border-white/10 rounded-xl p-5 text-center">
+              <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center">
+                <Lock className="w-5 h-5 text-primary" />
+              </div>
+              <h4 className="text-white text-sm font-medium mb-1">Encrypted Data</h4>
+              <p className="text-white/40 text-xs">In transit and at rest</p>
             </div>
-            <div className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-              <span>Retention policies you control</span>
+            <div className="bg-white/[0.02] border border-white/10 rounded-xl p-5 text-center">
+              <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-primary/10 flex items-center justify-center">
+                <Settings className="w-5 h-5 text-primary" />
+              </div>
+              <h4 className="text-white text-sm font-medium mb-1">Retention Policies</h4>
+              <p className="text-white/40 text-xs">Full control over your data</p>
             </div>
           </div>
         </motion.div>

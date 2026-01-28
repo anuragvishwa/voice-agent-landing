@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, MicOff, Phone, PhoneOff, Loader2, AlertCircle, User, Bot } from 'lucide-react';
+import { Mic, Phone, PhoneOff, Loader2, AlertCircle, User, Bot } from 'lucide-react';
 import {
   LiveKitRoom,
   RoomAudioRenderer,
   useVoiceAssistant,
   BarVisualizer,
-  useLocalParticipant,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 
@@ -105,17 +104,8 @@ function TranscriptMessage({ message, isAgent }) {
 // Voice assistant view - Shows when connected
 function VoiceAssistantView({ onEnd }) {
   const { state, audioTrack, agentTranscriptions, userTranscriptions } = useVoiceAssistant();
-  const localParticipant = useLocalParticipant();
-  const [isMuted, setIsMuted] = useState(false);
   const [transcript, setTranscript] = useState([]);
   const transcriptRef = useRef(null);
-
-  const toggleMute = useCallback(async () => {
-    if (localParticipant.localParticipant) {
-      await localParticipant.localParticipant.setMicrophoneEnabled(isMuted);
-      setIsMuted(!isMuted);
-    }
-  }, [localParticipant.localParticipant, isMuted]);
 
   // Build transcript from agent and user transcriptions
   useEffect(() => {
@@ -252,19 +242,7 @@ function VoiceAssistantView({ onEnd }) {
 
       {/* Controls */}
       <div className="px-6 py-4 border-t border-white/10 bg-white/[0.02]">
-        <div className="flex items-center justify-center gap-4">
-          {/* Mute toggle */}
-          <button
-            onClick={toggleMute}
-            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-              isMuted
-                ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                : 'bg-white/10 text-white hover:bg-white/20'
-            }`}
-          >
-            {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-          </button>
-
+        <div className="flex items-center justify-center">
           {/* End call button */}
           <button
             onClick={onEnd}
@@ -272,13 +250,10 @@ function VoiceAssistantView({ onEnd }) {
           >
             <PhoneOff className="w-6 h-6" />
           </button>
-
-          {/* Spacer */}
-          <div className="w-12" />
         </div>
 
         <p className="mt-3 text-center text-white/40 text-xs">
-          {isMuted ? 'Microphone muted' : 'Speak naturally — the AI will respond'}
+          Speak naturally — the AI will respond
         </p>
       </div>
     </div>
