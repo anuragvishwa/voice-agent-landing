@@ -272,33 +272,48 @@ export const ProblemScene = () => {
         </div>
 
         {/* Title with animated gradient */}
-        <h2
+        <div
           style={{
-            fontSize: 64,
-            fontWeight: 300,
-            color: "white",
-            margin: "0 0 16px 0",
             opacity: titleOpacity,
             transform: `translateY(${titleY}px)`,
             textAlign: "center",
-            fontFamily: "Georgia, serif",
+            marginBottom: 16,
           }}
         >
-          Customers call{" "}
-          <span
+          <h2
             style={{
-              display: "inline-block",
-              background: `linear-gradient(${90 + frame * 0.5}deg, #ef4444, #f87171, #ef4444)`,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              color: "transparent",
-              fontWeight: 500,
+              fontSize: 64,
+              fontWeight: 300,
+              color: "white",
+              margin: 0,
+              fontFamily: "Georgia, serif",
             }}
           >
-            multiple companies
-          </span>
-        </h2>
+            Customers call
+          </h2>
+          <svg width="550" height="80" viewBox="0 0 550 80" style={{ marginTop: -5 }}>
+            <defs>
+              <linearGradient id="problemGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#ef4444" />
+                <stop offset="50%" stopColor="#f87171" />
+                <stop offset="100%" stopColor="#ef4444" />
+              </linearGradient>
+            </defs>
+            <text
+              x="275"
+              y="55"
+              textAnchor="middle"
+              fill="url(#problemGradient)"
+              style={{
+                fontSize: 64,
+                fontWeight: 500,
+                fontFamily: "Georgia, serif",
+              }}
+            >
+              multiple companies
+            </text>
+          </svg>
+        </div>
 
         <p
           style={{

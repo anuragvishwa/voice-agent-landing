@@ -289,34 +289,50 @@ export const CTAScene = () => {
         </div>
 
         {/* Title with animated gradient */}
-        <h2
+        <div
           style={{
-            fontSize: 72,
-            fontWeight: 300,
-            color: "white",
-            margin: "0 0 20px 0",
             opacity: titleOpacity,
             transform: `translateY(${titleY}px)`,
             textAlign: "center",
-            fontFamily: "Georgia, serif",
-            lineHeight: 1.2,
+            marginBottom: 20,
           }}
         >
-          Stop losing{" "}
-          <span
+          <h2
             style={{
-              display: "inline-block",
-              background: `linear-gradient(${gradientAngle}deg, #0ea5e9, #38bdf8, #8b5cf6, #7dd3fc)`,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              color: "transparent",
-              fontWeight: 500,
+              fontSize: 72,
+              fontWeight: 300,
+              color: "white",
+              margin: 0,
+              fontFamily: "Georgia, serif",
+              lineHeight: 1.2,
             }}
           >
-            emergency jobs
-          </span>
-        </h2>
+            Stop losing
+          </h2>
+          <svg width="550" height="90" viewBox="0 0 550 90" style={{ marginTop: -5 }}>
+            <defs>
+              <linearGradient id="ctaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0ea5e9" />
+                <stop offset="33%" stopColor="#38bdf8" />
+                <stop offset="66%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#7dd3fc" />
+              </linearGradient>
+            </defs>
+            <text
+              x="275"
+              y="65"
+              textAnchor="middle"
+              fill="url(#ctaGradient)"
+              style={{
+                fontSize: 72,
+                fontWeight: 500,
+                fontFamily: "Georgia, serif",
+              }}
+            >
+              emergency jobs
+            </text>
+          </svg>
+        </div>
 
         {/* Subtitle */}
         <p

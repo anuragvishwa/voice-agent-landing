@@ -384,34 +384,50 @@ export const HeroScene = () => {
         </div>
 
         {/* Main Title */}
-        <h1
+        <div
           style={{
-            fontSize: 100,
-            fontWeight: 300,
-            color: "white",
-            margin: 0,
             opacity: titleOpacity,
             transform: `translateY(${titleY}px)`,
-            letterSpacing: "-0.03em",
             textAlign: "center",
-            lineHeight: 1.1,
           }}
         >
-          Never miss an{" "}
-          <span
+          <h1
             style={{
-              display: "inline-block",
-              background: `linear-gradient(${gradientAngle}deg, #0ea5e9, #38bdf8, #8b5cf6, #7dd3fc)`,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              color: "transparent",
-              fontWeight: 600,
+              fontSize: 100,
+              fontWeight: 300,
+              color: "white",
+              margin: 0,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.1,
             }}
           >
-            emergency call
-          </span>
-        </h1>
+            Never miss an
+          </h1>
+          <svg width="750" height="120" viewBox="0 0 750 120" style={{ marginTop: -10 }}>
+            <defs>
+              <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0ea5e9" />
+                <stop offset="33%" stopColor="#38bdf8" />
+                <stop offset="66%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#7dd3fc" />
+              </linearGradient>
+            </defs>
+            <text
+              x="375"
+              y="90"
+              textAnchor="middle"
+              fill="url(#heroGradient)"
+              style={{
+                fontSize: 100,
+                fontWeight: 600,
+                fontFamily: "Georgia, serif",
+                letterSpacing: "-0.03em",
+              }}
+            >
+              emergency call
+            </text>
+          </svg>
+        </div>
 
         {/* Subtitle with FlexDash mention */}
         <p

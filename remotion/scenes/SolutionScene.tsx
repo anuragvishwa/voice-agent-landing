@@ -327,33 +327,50 @@ export const SolutionScene = () => {
         </div>
 
         {/* Title with animated gradient */}
-        <h2
+        <div
           style={{
-            fontSize: 64,
-            fontWeight: 300,
-            color: "white",
-            margin: "0 0 16px 0",
             opacity: titleOpacity,
             transform: `translateY(${titleY}px)`,
             textAlign: "center",
-            fontFamily: "Georgia, serif",
+            marginBottom: 16,
           }}
         >
-          From ring to dispatch in{" "}
-          <span
+          <h2
             style={{
-              display: "inline-block",
-              background: `linear-gradient(${gradientAngle}deg, #0ea5e9, #38bdf8, #8b5cf6, #06b6d4)`,
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              color: "transparent",
-              fontWeight: 500,
+              fontSize: 64,
+              fontWeight: 300,
+              color: "white",
+              margin: 0,
+              fontFamily: "Georgia, serif",
+              display: "inline",
             }}
           >
-            seconds
-          </span>
-        </h2>
+            From ring to dispatch in{" "}
+          </h2>
+          <svg width="250" height="80" viewBox="0 0 250 80" style={{ display: "inline-block", verticalAlign: "bottom", marginBottom: -5 }}>
+            <defs>
+              <linearGradient id="solutionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0ea5e9" />
+                <stop offset="33%" stopColor="#38bdf8" />
+                <stop offset="66%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#06b6d4" />
+              </linearGradient>
+            </defs>
+            <text
+              x="125"
+              y="55"
+              textAnchor="middle"
+              fill="url(#solutionGradient)"
+              style={{
+                fontSize: 64,
+                fontWeight: 500,
+                fontFamily: "Georgia, serif",
+              }}
+            >
+              seconds
+            </text>
+          </svg>
+        </div>
 
         <p
           style={{
