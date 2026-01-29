@@ -222,9 +222,6 @@ export function Pricing() {
                   <div className="font-serif text-5xl text-primary mb-2">
                     {calculations.roi.toLocaleString()}%
                   </div>
-                  <div className="text-xs text-white/40">
-                    Based on $299/month service cost
-                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
